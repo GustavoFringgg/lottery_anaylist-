@@ -4,6 +4,8 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/tailwindcss'],
 
+  css: ['~/assets/css/main.css'],
+
   typescript: {
     strict: true,
   },
@@ -21,17 +23,10 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        {
-          name: 'description',
-          content: '全台最快即時台彩開獎資訊、歷史數據分析、號碼統計',
-        },
+        { name: 'description', content: '全台最快即時台彩開獎資訊、歷史數據分析、號碼統計' },
       ],
     },
   },
 
   ssr: true,
-
-  nitro: {
-    preset: 'vercel-edge',
-  },
 })

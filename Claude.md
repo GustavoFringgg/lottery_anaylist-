@@ -1,67 +1,148 @@
-台彩分析網站開發與競品技術規格書
+# 台彩分析 — 開發規範 & Figma 整合指南
 
-1. 競品分析統整 (樂透研究院 pilio.idv.tw)
-   目前市場排名第一的網站，具備高流量與強大的 SEO 排名，其技術特點如下：
+## 1. 競品分析統整 (樂透研究院 pilio.idv.tw)
 
-前端架構： 傳統 ASP + jQuery。
+目前市場排名第一，其技術特點：
+- **前端架構**：傳統 ASP + jQuery
+- **通訊機制**：Long Polling，透過 articleMedia API 達成不重整更新
+- **數據來源**：https://medium.gaii.ai/api/ 第三方 API
+- **弱點**：手機廣告繁雜、介面過時、Long Polling 高負載
 
-通訊機制： 使用 Long Polling (長輪詢)。透過 articleMedia API 請求達成「不重整網頁即時更新」。(狀態常處於 pending 直到數據產出)。
+## 2. 我方技術棧
 
-數據來源： 透過 https://medium.gaii.ai/api/ 的第三方 API 獲取數據。
+- **前端**：Nuxt 3 (SSR) + TypeScript + Tailwind CSS，部署 Vercel
+- **後端**：FastAPI + PostgreSQL + Redis，WebSocket 即時推播
+- **Monorepo**：`frontend/`（獨立 npm）+ `backend/`（獨立 Python venv）
 
-AI 應用： 陽春的 AI 自動生成文章，主要目的為 SEO 收錄 與長尾關鍵字佔領。
+## 3. 資料流架構
 
-弱點： 手機端廣告繁雜、介面過時(90年代風格)、高流量下 Long Polling 對伺服器壓力極大。
+- Task A：模擬對手 Header 戳 gaii.ai API
+- Task B：OpenCV + PaddleOCR 辨識 YouTube 直播
+- Task C：定時爬取台彩官網（核實來源）
+- 任一 Source 產出 → FastAPI WebSocket 廣播 → 存入 PostgreSQL
 
-2. 我方技術棧 (The "Fourth Place" Strategy)
-   身為 Full-stack Engineer，我們採用現代化架構進行「降維打擊」：
+---
 
-前端 (Frontend)
-框架： Nuxt 3 (SSR/SSG) 確保極致 SEO 與首屏載入速度。
+# Figma → Code 整合規範
 
-樣式： Tailwind CSS 打造現代 Dashboard 質感。
+## 4. 專案結構
 
-部署： Vercel (利用 Edge Functions 達成極速分發)。
+```
+frontend/
+├── assets/css/main.css          # Tailwind 入口 + @layer 全域樣式
+├── components/                  # Nuxt auto-import，無需手動引入
+│   ├── LotteryBall.vue          # 原子：單顆球號（normal / special）
+│   └── LotteryGameCard.vue      # 分子：遊戲卡片（logo + 資訊列 + 球號 + 按鈕）
+├── layouts/default.vue          # Header (#59ADBC) + Footer
+├── pages/
+│   └── index.vue                # 首頁：倒數 + 每5分鐘區 + 每日區
+├── nuxt.config.ts
+└── tailwind.config.js
+```
 
-後端 (Backend)
-框架： FastAPI (Python)。利用非同步特性 (Async/Await) 處理高併發 WebSocket。
+## 5. Design Tokens
 
-資料庫： PostgreSQL (持久化歷史開獎數據) + Redis (即時數據快取)。
+所有 Token 定義於 `tailwind.config.js`，**不使用獨立 token 檔案**。
 
-通訊： WebSocket。取代長輪詢，達成極低延遲的即時球號跳動體驗。
+### 顏色
 
-3. 核心數據邏輯與流程 (The Hybrid Moat)
-   為了達成「全台最快」且「穩定」的目標，採用多源併行機制：
+| 用途 | 值 | Tailwind / 用法 |
+|------|-----|-----------------|
+| 頁面底色 | `#F0EDE6` | `bg-cream`（custom）|
+| Header 背景 | `#59ADBC` | inline style |
+| Section banner | `#2da090 → #4ecdc4` | `.section-banner` CSS class |
+| 資訊列背景 | sky-100 | `bg-sky-100` |
+| 按鈕背景 | `#26a69a` | `.btn-sort` CSS class |
+| 按鈕 hover | `#1e8a7e` | `.btn-sort:hover` |
+| 按鈕 active | `#00796b` | `.btn-sort.active` |
+| 卡片背景 | white | `bg-white` |
 
-數據抓取層 (Scraper Layer):
+### 遊戲 Logo 顏色（`nameColor` prop）
 
-Task A: 模擬對手 Request Header (Referer, User-Agent) 戳 gaii.ai API。
+| 遊戲 | 顏色 |
+|------|------|
+| 今彩539 | `#e53935` |
+| 威力彩 | `#7b1fa2` |
+| 大樂透 | `#e65100` |
+| 49樂合彩 | `#e65100` |
+| 39樂合彩 | `#f57c00` |
+| 3星彩 | `#c8a000` |
+| 4星彩 | `#e65100` |
 
-Task B: Python OpenCV + PaddleOCR 辨識 YouTube 直播畫面 (第一手資料)。
+### LotteryBall 球號顏色
 
-Task C: 定時爬取台彩官網 (最終核實來源)。
+| type | 樣式 |
+|------|------|
+| `normal` | `bg-white border-2 border-gray-300 text-gray-800 shadow-sm` |
+| `special` | `bg-red-500 border-2 border-red-600 text-white shadow-sm` |
 
-即時推播層 (Broadcaster):
+### 球號尺寸
 
-號碼一旦由任何 Source 產出，FastAPI 立即透過 WebSocket 廣播。
+| size | class |
+|------|-------|
+| `md`（預設）| `w-9 h-9 text-sm` |
+| `sm` | `w-7 h-7 text-xs` |
 
-持久化層 (Persistence):
+## 6. 全域元件類別（`assets/css/main.css`）
 
-確認後的數據存入 PostgreSQL，供 Nuxt 3 進行 SSR 渲染及歷史分析。
+```css
+.section-banner   /* 綠色漸層區塊分隔 banner */
+.game-card        /* 白色圓角卡片 + shadow */
+.draw-info-bar    /* 淡藍色資訊列 */
+.btn-sort         /* 排序按鈕（大小順序 / 開出順序）*/
+```
 
-4. UI/UX 與產品差異化
-   Mobile-First: 針對 91% 的手機用戶優化，極簡無廣告干擾。
+## 7. 元件介面規範
 
-即時感: 球號跳動動畫 (TransitionGroup)，增加開獎時的儀式感。
+### `LotteryBall.vue`
+```ts
+Props {
+  number: number | null   // 顯示數字，null 顯示 '--'
+  type?: 'normal' | 'special'  // 預設 'normal'
+  size?: 'sm' | 'md'           // 預設 'md'
+}
+```
 
-AI 功能: 未來導入 AI Agent 進行「投注回測」與「機率可視化」，而非單純產出文章。
+### `LotteryGameCard.vue`
+```ts
+Props {
+  game: {
+    name: string          // 遊戲名稱（顯示為 logo 文字）
+    nameColor: string     // logo 文字顏色（hex）
+    draw_term: string     // 期別
+    draw_date: string     // 開獎日期
+    draw_time: string     // 開獎時間
+    next_draw: string     // 下期開獎日期
+    numbers: number[]     // 主要號碼
+    special_number: number | null  // 特別號（null = 不顯示）
+  }
+}
+```
 
-5. 給 Claude Code 的指令建議 (Copy & Paste)
-   「我正在開發一個台彩分析網站。後端使用 FastAPI + PostgreSQL + Redis，前端使用 Nuxt 3。
-   目前已確認對手使用 Long Polling 戳 medium.gaii.ai 的 API。
+內建狀態：`sortMode: 'draw' | 'size'`，按鈕切換即時重排號碼。
 
-請幫我寫一個 FastAPI 的 WebSocket Manager，負責廣播開獎號碼。
+## 8. 頁面佈局規則
 
-請幫我寫一個 Python 爬蟲範例，帶上 referer: https://www.pilio.idv.tw/ 模擬對手請求。
+- **行動優先（Mobile First）**：預設單欄，`sm:` 斷點切二欄
+- **遊戲卡片格線**：`grid grid-cols-1 sm:grid-cols-2 gap-3`
+- **頁面 max-width**：`max-w-5xl mx-auto px-2 sm:px-4`
+- **區塊間距**：`space-y-3`
 
-請幫我建立 PostgreSQL 的 schema，使用 INTEGER[] 存儲號碼。」
+## 9. 廣告區塊
+
+Figma 設計稿左右側有廣告區域，**不實作**，只做主要內容區。
+
+## 10. Figma → 元件對應規則
+
+從 Figma 稿件轉換時：
+1. **顏色** → hex 對應 Tailwind token；若無對應加入 `tailwind.config.js` 或用 `bg-[#hex]`
+2. **字型大小** → 對應 Tailwind `text-*` scale
+3. **新元件** → 放 `components/`，PascalCase 命名
+4. **全域可重用 class** → 定義在 `assets/css/main.css` 的 `@layer components`
+5. **Logo 圖片** → 目前用有色文字代替，未來放 `public/logos/`
+
+## 11. 資產管理
+
+- 靜態資產 → `public/`（引用 `/filename`）
+- CSS 內資產 → `assets/`（引用 `~/assets/`）
+- `nuxt.config.ts` 的 `css` 陣列引入 `~/assets/css/main.css`
