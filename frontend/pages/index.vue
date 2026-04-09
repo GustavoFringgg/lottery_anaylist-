@@ -45,7 +45,8 @@ const games5min = [
     draw_time: "21:30",
     next_draw: "115/03/31",
     numbers: [3, 29, 33, 27, 30, 17],
-    special_number: 9
+    special_number: 9,
+    bgColor: "#B6D7FF"
   }
 ]
 
@@ -58,7 +59,8 @@ const gamesDaily = [
     draw_time: "21:30",
     next_draw: "115/03/31",
     numbers: [3, 29, 33, 27, 30, 17],
-    special_number: 9
+    special_number: 9,
+    bgColor: "#FFDFAA"
   },
   {
     name: "49樂合彩",
@@ -68,7 +70,8 @@ const gamesDaily = [
     draw_time: "21:30",
     next_draw: "115/03/31",
     numbers: [3, 29, 33, 27],
-    special_number: 9
+    special_number: 9,
+    bgColor: "#FFB59E"
   },
   {
     name: "今彩539",
@@ -78,7 +81,8 @@ const gamesDaily = [
     draw_time: "15:00",
     next_draw: "115/04/01",
     numbers: [3, 29, 33, 27, 30],
-    special_number: null
+    special_number: null,
+    bgColor: "#E0E9AA"
   },
   {
     name: "39樂合彩",
@@ -88,7 +92,8 @@ const gamesDaily = [
     draw_time: "15:00",
     next_draw: "115/04/01",
     numbers: [29, 27, 3, 33],
-    special_number: null
+    special_number: null,
+    bgColor: "#D8D8D8"
   },
   {
     name: "3星彩",
@@ -98,7 +103,9 @@ const gamesDaily = [
     draw_time: "13:30",
     next_draw: "115/04/01",
     numbers: [3, 2, 9],
-    special_number: null
+    special_number: null,
+    showSortButtons: false,
+    bgColor: "#FFD269"
   },
   {
     name: "4星彩",
@@ -108,7 +115,9 @@ const gamesDaily = [
     draw_time: "13:30",
     next_draw: "115/04/01",
     numbers: [3, 2, 9, 7],
-    special_number: null
+    special_number: null,
+    showSortButtons: false,
+    bgColor: "#FFD269"
   }
 ]
 
@@ -136,7 +145,7 @@ useHead({ title: "台彩分析 - 即時開獎資訊" })
       />
       <div
         class="text-center flex-1"
-        style="font-family: 'Inter', sans-serif; font-weight: 700; color: #626262;"
+        style="font-family: &quot;Inter&quot;, sans-serif; font-weight: 700; color: #626262"
         :style="{ fontSize: 'clamp(20px, 3vw, 40px)' }"
       >
         開獎直播倒數：{{ days }} 天 {{ pad(hours) }} 時 {{ pad(minutes) }} 分 {{ pad(seconds) }} 秒

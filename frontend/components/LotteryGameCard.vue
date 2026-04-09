@@ -8,21 +8,20 @@ interface Game {
   next_draw: string
   numbers: number[]
   special_number: number | null
+  showSortButtons?: boolean
+  bgColor?: string
 }
-
 const props = defineProps<{ game: Game }>()
 
-const sortMode = ref<'draw' | 'size'>('draw')
+const sortMode = ref<"draw" | "size">("draw")
 
 const displayNumbers = computed(() =>
-  sortMode.value === 'size'
-    ? [...props.game.numbers].sort((a, b) => a - b)
-    : props.game.numbers
+  sortMode.value === "size" ? [...props.game.numbers].sort((a, b) => a - b) : props.game.numbers
 )
 </script>
 
 <template>
-  <div class="game-card">
+  <div class="game-card flex flex-col" :style="{ backgroundColor: game.bgColor ?? '#ffffff', borderRadius: '5px' }">
     <!-- Game logo / name -->
     <div class="py-2.5 px-3 text-center border-b border-gray-100 bg-white">
       <span class="text-base font-extrabold tracking-wide" :style="{ color: game.nameColor }">
@@ -40,20 +39,14 @@ const displayNumbers = computed(() =>
     />
 
     <!-- Balls -->
-    <div class="flex flex-wrap items-center gap-1.5 px-3 py-3 min-h-[56px]">
-      <LotteryBall
-        v-for="(num, i) in displayNumbers"
-        :key="i"
-        :number="num"
-        type="normal"
-        size="md"
-      />
+    <div class="flex flex-wrap items-center gap-1.5 px-3 py-3 min-h-[56px] flex-grow">
+      <LotteryBall v-for="(num, i) in displayNumbers" :key="i" :number="num" type="normal" size="md" />
       <template v-if="game.special_number !== null">
         <span class="text-gray-400 font-light text-base">+</span>
         <LotteryBall :number="game.special_number" type="special" size="md" />
       </template>
     </div>
 
-    <SortButtons v-model="sortMode" />
+    <SortButtons v-if="game.showSortButtons !== false" v-model="sortMode" />
   </div>
 </template>
