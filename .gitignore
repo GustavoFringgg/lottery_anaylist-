@@ -1,0 +1,20 @@
+# Node
+node_modules/
+.npm
+
+# Nuxt
+frontend/.nuxt/
+frontend/.output/
+frontend/dist/
+frontend/.env
+
+# Python
+backend/__pycache__/
+backend/*.pyc
+backend/.venv/
+backend/venv/
+backend/.env
+
+# Misc
+.DS_Store
+*.log
