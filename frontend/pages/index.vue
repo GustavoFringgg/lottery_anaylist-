@@ -23,129 +23,154 @@ onMounted(() => {
   onUnmounted(() => clearInterval(timer))
 })
 
-const pad = (n: number) => String(n).padStart(2, '0')
+const pad = (n: number) => String(n).padStart(2, "0")
 
 // --- Mock Data ---
 const games5min = [
   {
-    name: '今彩539',
-    nameColor: '#e53935',
-    draw_term: '115000079',
-    draw_date: '115/03/30',
-    draw_time: '15:00',
-    next_draw: '115/04/01',
+    name: "今彩539",
+    nameColor: "#e53935",
+    draw_term: "115000079",
+    draw_date: "115/03/30",
+    draw_time: "15:00",
+    next_draw: "115/04/01",
     numbers: [3, 29, 33, 27, 30],
-    special_number: null,
+    special_number: null
   },
   {
-    name: '威力彩',
-    nameColor: '#7b1fa2',
-    draw_term: '115000026',
-    draw_date: '115/03/27',
-    draw_time: '21:30',
-    next_draw: '115/03/31',
+    name: "威力彩",
+    nameColor: "#7b1fa2",
+    draw_term: "115000026",
+    draw_date: "115/03/27",
+    draw_time: "21:30",
+    next_draw: "115/03/31",
     numbers: [3, 29, 33, 27, 30, 17],
-    special_number: 9,
-  },
+    special_number: 9
+  }
 ]
 
 const gamesDaily = [
   {
-    name: '大樂透',
-    nameColor: '#e65100',
-    draw_term: '115000030',
-    draw_date: '115/03/27',
-    draw_time: '21:30',
-    next_draw: '115/03/31',
+    name: "大樂透",
+    nameColor: "#e65100",
+    draw_term: "115000030",
+    draw_date: "115/03/27",
+    draw_time: "21:30",
+    next_draw: "115/03/31",
     numbers: [3, 29, 33, 27, 30, 17],
-    special_number: 9,
+    special_number: 9
   },
   {
-    name: '49樂合彩',
-    nameColor: '#e65100',
-    draw_term: '115000030',
-    draw_date: '115/03/27',
-    draw_time: '21:30',
-    next_draw: '115/03/31',
+    name: "49樂合彩",
+    nameColor: "#e65100",
+    draw_term: "115000030",
+    draw_date: "115/03/27",
+    draw_time: "21:30",
+    next_draw: "115/03/31",
     numbers: [3, 29, 33, 27],
-    special_number: 9,
+    special_number: 9
   },
   {
-    name: '今彩539',
-    nameColor: '#e53935',
-    draw_term: '115000079',
-    draw_date: '115/03/30',
-    draw_time: '15:00',
-    next_draw: '115/04/01',
+    name: "今彩539",
+    nameColor: "#e53935",
+    draw_term: "115000079",
+    draw_date: "115/03/30",
+    draw_time: "15:00",
+    next_draw: "115/04/01",
     numbers: [3, 29, 33, 27, 30],
-    special_number: null,
+    special_number: null
   },
   {
-    name: '39樂合彩',
-    nameColor: '#f57c00',
-    draw_term: '115000079',
-    draw_date: '115/03/30',
-    draw_time: '15:00',
-    next_draw: '115/04/01',
+    name: "39樂合彩",
+    nameColor: "#f57c00",
+    draw_term: "115000079",
+    draw_date: "115/03/30",
+    draw_time: "15:00",
+    next_draw: "115/04/01",
     numbers: [29, 27, 3, 33],
-    special_number: null,
+    special_number: null
   },
   {
-    name: '3星彩',
-    nameColor: '#c8a000',
-    draw_term: '115000079',
-    draw_date: '115/03/30',
-    draw_time: '13:30',
-    next_draw: '115/04/01',
+    name: "3星彩",
+    nameColor: "#c8a000",
+    draw_term: "115000079",
+    draw_date: "115/03/30",
+    draw_time: "13:30",
+    next_draw: "115/04/01",
     numbers: [3, 2, 9],
-    special_number: null,
+    special_number: null
   },
   {
-    name: '4星彩',
-    nameColor: '#e65100',
-    draw_term: '115000079',
-    draw_date: '115/03/30',
-    draw_time: '13:30',
-    next_draw: '115/04/01',
+    name: "4星彩",
+    nameColor: "#e65100",
+    draw_term: "115000079",
+    draw_date: "115/03/30",
+    draw_time: "13:30",
+    next_draw: "115/04/01",
     numbers: [3, 2, 9, 7],
-    special_number: null,
-  },
+    special_number: null
+  }
 ]
 
-useHead({ title: '台彩分析 - 即時開獎資訊' })
+useHead({ title: "台彩分析 - 即時開獎資訊" })
 </script>
 
 <template>
   <div class="space-y-3">
     <!-- Countdown Banner -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-100 px-4 py-3 flex items-center justify-between flex-wrap gap-2">
-      <span class="text-base font-bold text-red-600">今彩 539</span>
-      <div class="text-sm text-gray-700">
-        開獎直播倒數：
-        <span class="font-bold text-orange-600">
-          {{ days }}天 {{ pad(hours) }}時 {{ pad(minutes) }}分 {{ pad(seconds) }}秒
-        </span>
+    <div
+      class="w-full flex flex-col sm:flex-row items-center sm:justify-between px-6 py-4 sm:py-0"
+      style="
+        min-height: 151px;
+        background: linear-gradient(180deg, #9ce2f9 0%, #daf6f0 100%);
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+      "
+    >
+      <img
+        src="/images/logos/jinchoi539.png"
+        alt="今彩539"
+        width="246"
+        height="104"
+        class="object-contain sm:ml-[107px]"
+      />
+      <div
+        class="text-center flex-1"
+        style="font-family: 'Inter', sans-serif; font-weight: 700; color: #626262;"
+        :style="{ fontSize: 'clamp(20px, 3vw, 40px)' }"
+      >
+        開獎直播倒數：{{ days }} 天 {{ pad(hours) }} 時 {{ pad(minutes) }} 分 {{ pad(seconds) }} 秒
       </div>
     </div>
 
     <!-- 每五分鐘開獎一次 -->
-    <div class="section-banner">每五分鐘開獎一次</div>
+    <div class="m-4">
+      <SectionBanner>每五分鐘開獎一次</SectionBanner>
+    </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <LotteryGameCard
-        v-for="game in games5min"
-        :key="game.name"
-        :game="game"
+      <!-- BingoBingo 獨立元件 -->
+      <BingoBingoCard
+        draw_term="115018164"
+        draw_date="115/03/31(二)"
+        draw_time="15:0"
+        next_draw_date="115/03/31(二)"
+        next_draw_time="15:10"
+        :numbers="[13, 27, 28, 41, 26, 16, 22, 31, 2, 36, 27, 10, 9, 6, 24, 12, 37, 25, 22]"
+        :special_number="1"
+        :super_prize="1"
+        guess_big_small="-"
+        guess_odd_even="單"
       />
+      <!-- 威力彩 -->
+      <LotteryGameCard :game="games5min[1]" />
     </div>
 
     <!-- 每日開獎一次 -->
-    <div class="section-banner">每日開獎一次</div>
+    <div class="m-4">
+      <SectionBanner>每日開獎一次</SectionBanner>
+    </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <LotteryGameCard
-        v-for="game in gamesDaily"
-        :key="game.name + game.draw_term"
-        :game="game"
-      />
+      <LotteryGameCard v-for="game in gamesDaily" :key="game.name + game.draw_term" :game="game" />
     </div>
   </div>
 </template>

@@ -31,12 +31,13 @@ const displayNumbers = computed(() =>
     </div>
 
     <!-- Draw info bar -->
-    <div class="draw-info-bar">
-      <div class="flex justify-between flex-wrap gap-1">
-        <span>{{ game.draw_date }} {{ game.draw_time }}　第{{ game.draw_term }}期號碼</span>
-        <span>下期開獎：{{ game.next_draw }}</span>
-      </div>
-    </div>
+    <DrawInfoBar
+      :drawDate="game.draw_date"
+      :drawTime="game.draw_time"
+      :drawTerm="game.draw_term"
+      :nextDraw="game.next_draw"
+      nextDrawLabel="下期開獎："
+    />
 
     <!-- Balls -->
     <div class="flex flex-wrap items-center gap-1.5 px-3 py-3 min-h-[56px]">
@@ -53,23 +54,6 @@ const displayNumbers = computed(() =>
       </template>
     </div>
 
-    <!-- Sort buttons -->
-    <div class="flex border-t border-gray-100">
-      <button
-        class="btn-sort"
-        :class="{ active: sortMode === 'size' }"
-        @click="sortMode = 'size'"
-      >
-        大小順序
-      </button>
-      <div class="w-px bg-white/40" />
-      <button
-        class="btn-sort"
-        :class="{ active: sortMode === 'draw' }"
-        @click="sortMode = 'draw'"
-      >
-        開出順序
-      </button>
-    </div>
+    <SortButtons v-model="sortMode" />
   </div>
 </template>
