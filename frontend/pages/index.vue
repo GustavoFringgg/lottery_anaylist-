@@ -121,7 +121,7 @@ const gamesDaily = [
   }
 ]
 
-useHead({ title: "台彩分析 - 即時開獎資訊" })
+useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
 </script>
 
 <template>
@@ -136,13 +136,7 @@ useHead({ title: "台彩分析 - 即時開獎資訊" })
         border-radius: 5px;
       "
     >
-      <img
-        src="/images/logos/jinchoi539.png"
-        alt="今彩539"
-        width="246"
-        height="104"
-        class="object-contain"
-      />
+      <img src="/images/logos/jinchoi539.png" alt="今彩539" width="246" height="104" class="object-contain" />
       <div
         class="text-center"
         style="font-family: &quot;Inter&quot;, sans-serif; font-weight: 700; color: #626262"
