@@ -14,8 +14,8 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <div
-    class="mx-4 mb-4 rounded-lg px-4 py-2 text-sm text-gray-700"
-    style="background: linear-gradient(180deg, #e0f7f4 0%, #c8eef9 100%); border: 1px solid #a0d8ef;"
+    class="px-3 py-2 text-sm text-gray-700"
+    style="background: linear-gradient(180deg, #e0f7f4 0%, #c8eef9 100%); border-bottom: 1px solid #a0d8ef;"
   >
     <div class="font-medium">{{ drawDate }} {{ drawTime }}　第{{ drawTerm }}期</div>
     <div class="text-xs text-gray-500 mt-0.5">{{ nextDrawLabel }}{{ nextDraw }}</div>

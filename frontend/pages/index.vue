@@ -128,7 +128,7 @@ useHead({ title: "台彩分析 - 即時開獎資訊" })
   <div class="space-y-3">
     <!-- Countdown Banner -->
     <div
-      class="w-full flex flex-col sm:flex-row items-center sm:justify-between px-6 py-4 sm:py-0"
+      class="w-full flex flex-col sm:flex-row items-center justify-center sm:justify-around px-6 py-4 sm:py-0 gap-3"
       style="
         min-height: 151px;
         background: linear-gradient(180deg, #9ce2f9 0%, #daf6f0 100%);
@@ -141,12 +141,12 @@ useHead({ title: "台彩分析 - 即時開獎資訊" })
         alt="今彩539"
         width="246"
         height="104"
-        class="object-contain sm:ml-[107px]"
+        class="object-contain"
       />
       <div
-        class="text-center flex-1"
+        class="text-center"
         style="font-family: &quot;Inter&quot;, sans-serif; font-weight: 700; color: #626262"
-        :style="{ fontSize: 'clamp(20px, 3vw, 40px)' }"
+        :style="{ fontSize: 'clamp(16px, 2.5vw, 36px)' }"
       >
         開獎直播倒數：{{ days }} 天 {{ pad(hours) }} 時 {{ pad(minutes) }} 分 {{ pad(seconds) }} 秒
       </div>

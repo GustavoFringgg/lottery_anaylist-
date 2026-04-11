@@ -21,7 +21,7 @@ const displayNumbers = computed(() =>
 </script>
 
 <template>
-  <div class="game-card flex flex-col" :style="{ backgroundColor: game.bgColor ?? '#ffffff', borderRadius: '5px' }">
+  <div class="game-card flex flex-col w-full max-w-[748px] mx-auto" :style="{ backgroundColor: game.bgColor ?? '#ffffff', borderRadius: '5px' }">
     <!-- Game logo / name -->
     <div class="py-2.5 px-3 text-center border-b border-gray-100 bg-white">
       <span class="text-base font-extrabold tracking-wide" :style="{ color: game.nameColor }">

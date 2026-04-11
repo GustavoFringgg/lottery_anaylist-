@@ -23,15 +23,19 @@
   }
 
   .btn-sort {
-    @apply flex-1 py-2 text-xs font-semibold text-white transition-colors;
-    background-color: #26a69a;
+    @apply flex-1 text-sm font-semibold transition-colors;
+    height: 151px;
+    background-color: #d9d9d9;
+    color: #26a69a;
   }
 
   .btn-sort:hover {
-    background-color: #1e8a7e;
+    background-color: #c4c4c4;
+    color: #26a69a;
   }
 
   .btn-sort.active {
-    background-color: #00796b;
+    background-color: #26a69a;
+    color: #ffffff;
   }
 }

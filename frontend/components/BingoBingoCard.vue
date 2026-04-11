@@ -21,7 +21,7 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div class="rounded-lg overflow-hidden shadow-lg" style="background-color: #f1e5ff; border-radius: 5px">
+  <div class="rounded-lg overflow-hidden shadow-lg w-full max-w-[748px] mx-auto" style="background-color: #f1e5ff; border-radius: 5px">
     <!-- Logo -->
     <div class="flex justify-center pt-4 pb-2">
       <img src="/images/logos/bingobingo.png" alt="BingoBingo" class="h-[120px] object-contain" />

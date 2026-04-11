@@ -6,14 +6,14 @@
     <div
       class="absolute inset-y-0 z-20 flex items-center justify-center"
       style="
-        width: 913px;
-        left: 50%;
-        transform: translateX(-50%) translateY(-15px);
+        left: 5%;
+        right: 5%;
+        transform: translateY(-15px);
         border-radius: 10px;
         background: linear-gradient(90deg, #64cbaa 0%, #8bffda 50%, #64cbaa 100%);
       "
     >
-      <span class="font-bold" style="font-size: 40px; color: #2a716d">
+      <span class="font-bold text-2xl sm:text-3xl md:text-4xl" style="color: #2a716d">
         <slot />
       </span>
     </div>

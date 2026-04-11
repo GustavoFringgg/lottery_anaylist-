@@ -11,7 +11,6 @@ const sortMode = defineModel<'size' | 'draw'>({ default: 'draw' })
     >
       大小順序
     </button>
-    <div class="w-px bg-white/40" />
     <button
       class="btn-sort"
       :class="{ active: sortMode === 'draw' }"
