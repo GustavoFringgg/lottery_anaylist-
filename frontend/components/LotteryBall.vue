@@ -17,8 +17,8 @@ withDefaults(defineProps<Props>(), {
   <div
     class="rounded-full inline-flex items-center justify-center font-bold select-none shrink-0"
     :class="{
-      'w-[55px] h-[55px] text-2xl': size === 'md',
-      'w-[40px] h-[40px] text-sm': size === 'sm',
+      'w-[36px] h-[36px] text-[10px] sm:w-[55px] sm:h-[55px] sm:text-2xl': size === 'md',
+      'w-[36px] h-[36px] text-[10px] sm:w-[40px] sm:h-[40px] sm:text-sm': size === 'sm',
       'bg-white border-2 border-gray-300 text-gray-800 shadow-sm': type === 'normal',
       'bg-red-500 border-2 border-red-600 text-white shadow-sm': type === 'special'
     }"
