@@ -37,7 +37,7 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
   <div class="space-y-3 flex flex-col w-full max-w-[1200px] mx-auto px-2 sm:px-4">
     <!-- Countdown Banner -->
     <div
-      class="w-full flex flex-col sm:flex-row items-center justify-center sm:justify-around px-6 py-4 sm:py-0 gap-3 mb-[26px]"
+      class="w-full flex flex-col sm:flex-row items-center  sm:justify-center px-6 py-4 sm:py-0 gap-x-10 mb-[26px]"
       style="
         min-height: 151px;
         background: linear-gradient(180deg, #9ce2f9 0%, #daf6f0 100%);
@@ -55,7 +55,6 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
       </div>
     </div>
 
-    <!-- 每五分鐘開獎一次 -->
     <SectionBanner>每五分鐘開獎一次</SectionBanner>
     <BingoBingoCard
       draw_term="115018164"
@@ -70,11 +69,10 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
       guess_odd_even="單"
     />
 
-    <!-- 每週開獎兩次 -->
     <div class="mt-[26px]">
       <SectionBanner>每週開獎兩次</SectionBanner>
-    </div>
-    <!-- 威力彩 全寬 -->
+    </div
+    <!-- 威力彩  -->
     <LotteryGameCard :game="gamesTwiceWeekly[0]" :full-width="true" />
     <!-- 大樂透 + 49樂合彩 -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -82,7 +80,6 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
       <LotteryGameCard :game="gamesTwiceWeekly[2]" />
     </div>
 
-    <!-- 每日開獎一次 -->
     <div class="mt-[26px]">
       <SectionBanner>每日開獎一次</SectionBanner>
     </div>

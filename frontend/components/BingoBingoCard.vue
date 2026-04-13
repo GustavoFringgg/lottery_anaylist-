@@ -40,10 +40,11 @@ withDefaults(defineProps<Props>(), {
     />
 
     <!-- 彩球排列 -->
-    <div class="grid grid-cols-5 gap-x-4 gap-y-3 px-6 pb-4">
+    <div class="grid grid-cols-5 gap-y-3 px-6 pb-4 max-w-[750px] mx-auto">
       <div v-for="(num, i) in numbers" :key="i" class="flex flex-col items-center">
         <LotteryBall :number="num" type="normal" size="md" />
       </div>
+
       <div class="flex flex-col items-center">
         <LotteryBall :number="special_number" type="special" size="md" />
         <span class="text-[12px] sm:text-[20px] text-red-500 font-bold mt-0.5">特別號</span>
@@ -51,22 +52,22 @@ withDefaults(defineProps<Props>(), {
     </div>
 
     <!-- Bottom: 超級獎號 / 猜大小 / 猜單雙 -->
-    <div class="flex pb-6 text-[13px] sm:text-[25px] text-gray-700">
+    <div class="flex pb-6 text-[13px] sm:text-[25px] text-gray-700 max-w-[720px] mx-auto">
       <div class="flex-1 flex items-center justify-center gap-2">
-        <span class="font-medium">超級獎號</span>
+        <span class="font-bold">超級獎號</span>
         <LotteryBall :number="super_prize" type="special" size="md" />
       </div>
       <div class="flex-1 flex items-center justify-center gap-2">
-        <span class="font-medium">猜大小</span>
+        <span class="font-bold">猜大小</span>
         <div
-          class="w-[55px] h-[55px] rounded-full flex items-center justify-center text-[25px] font-bold text-gray-700 shrink-0"
+          class="w-[55px] h-[55px] rounded-full flex items-center justify-center text-[40px] font-bold text-gray-700 shrink-0"
           style="background-color: #f9d71c"
         >
           {{ guess_big_small }}
         </div>
       </div>
       <div class="flex-1 flex items-center justify-center gap-2">
-        <span class="font-medium">猜單雙</span>
+        <span class="font-bold">猜單雙</span>
         <div
           class="w-[55px] h-[55px] rounded-full flex items-center justify-center text-[25px] font-bold text-white shrink-0"
           style="background-color: #26a69a"

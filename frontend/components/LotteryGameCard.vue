@@ -21,6 +21,10 @@ const displayNumbers = computed(() =>
 )
 
 const gridStyle = computed(() => {
+  if (props.fullWidth) {
+    const total = props.game.numbers.length + (props.game.special_number !== null ? 1 : 0)
+    return { gridTemplateColumns: `repeat(${total}, 55px)` }
+  }
   const cols = props.game.numbers.length <= 5 ? props.game.numbers.length : 4
   return { gridTemplateColumns: `repeat(${cols}, 55px)` }
 })
