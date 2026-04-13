@@ -36,7 +36,7 @@ withDefaults(defineProps<Props>(), {
       :drawTime="draw_time"
       :drawTerm="draw_term"
       :nextDraw="`${next_draw_date}${next_draw_time}`"
-      class="w-[507px] ms-[46px]"
+      class="sm:max-w-[507px] sm:ms-[46px]"
     />
 
     <!-- 彩球排列 -->
@@ -46,12 +46,12 @@ withDefaults(defineProps<Props>(), {
       </div>
       <div class="flex flex-col items-center">
         <LotteryBall :number="special_number" type="special" size="md" />
-        <span class="text-[20px] text-red-500 font-bold mt-0.5">特別號</span>
+        <span class="text-[12px] sm:text-[20px] text-red-500 font-bold mt-0.5">特別號</span>
       </div>
     </div>
 
     <!-- Bottom: 超級獎號 / 猜大小 / 猜單雙 -->
-    <div class="flex items-center gap-4 px-6 pb-4 text-[25px] text-gray-700 ms-[20px]">
+    <div class="flex items-center gap-2 sm:gap-4 px-3 sm:px-6 pb-4 text-[13px] sm:text-[25px] text-gray-700 sm:ms-[20px]">
       <span class="font-medium">超級獎號</span>
       <LotteryBall :number="super_prize" type="special" size="md" class="w-[55px] h-[55px]" />
 

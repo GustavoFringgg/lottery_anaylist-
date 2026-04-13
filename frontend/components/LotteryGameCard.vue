@@ -41,17 +41,17 @@ const gridStyle = computed(() => {
       :drawTerm="game.draw_term"
       :nextDraw="game.next_draw"
       nextDrawLabel="下期開獎："
-      class="w-[507px] ms-[46px]"
+      class="sm:max-w-[507px] sm:ms-[46px]"
     />
 
     <!-- Balls -->
-    <div class="grid justify-center gap-x-[59px] gap-y-[51px] px-6 py-4" :style="gridStyle">
+    <div class="grid justify-center gap-x-[15px] sm:gap-x-[59px] gap-y-[15px] sm:gap-y-[51px] px-4 sm:px-6 py-4" :style="gridStyle">
       <div v-for="(num, i) in displayNumbers" :key="i" class="flex flex-col items-center">
         <LotteryBall :number="num" type="normal" size="md" />
       </div>
       <div v-if="game.special_number !== null" class="flex flex-col items-center w-[60px]">
         <LotteryBall :number="game.special_number" type="special" size="md" />
-        <span class="text-[20px] text-red-500 font-bold mt-0.5">特別號</span>
+        <span class="text-[12px] sm:text-[20px] text-red-500 font-bold mt-0.5">特別號</span>
       </div>
     </div>
 
