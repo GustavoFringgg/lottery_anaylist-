@@ -25,108 +25,10 @@ onMounted(() => {
 
 const pad = (n: number) => String(n).padStart(2, "0")
 
-// --- Mock Data ---
-const games5min = [
-  {
-    name: "今彩539",
-    nameColor: "#e53935",
-    draw_term: "115000079",
-    draw_date: "115/03/30",
-    draw_time: "15:00",
-    next_draw: "115/04/01",
-    numbers: [3, 29, 33, 27, 30],
-    special_number: null
-  },
-  {
-    name: "威力彩",
-    nameColor: "#7b1fa2",
-    draw_term: "115000026",
-    draw_date: "115/03/27",
-    draw_time: "21:30",
-    next_draw: "115/03/31",
-    numbers: [3, 29, 33, 27, 30, 17],
-    special_number: 9,
-    bgColor: "#B6D7FF",
-    logo: "/images/logos/power-lotto.png"
-  }
-]
-
-const gamesDaily = [
-  {
-    name: "大樂透",
-    nameColor: "#e65100",
-    draw_term: "115000030",
-    draw_date: "115/03/27",
-    draw_time: "21:30",
-    next_draw: "115/03/31",
-    numbers: [3, 29, 33, 27, 30, 17],
-    special_number: 9,
-    bgColor: "#FFDFAA",
-    logo: "/images/logos/lotto.png"
-  },
-  {
-    name: "49樂合彩",
-    nameColor: "#e65100",
-    draw_term: "115000030",
-    draw_date: "115/03/27",
-    draw_time: "21:30",
-    next_draw: "115/03/31",
-    numbers: [3, 29, 33, 27, 2, 9],
-    special_number: null,
-    bgColor: "#FFB59E",
-    logo: "/images/logos/49lotto.png"
-  },
-  {
-    name: "今彩539",
-    nameColor: "#e53935",
-    draw_term: "115000079",
-    draw_date: "115/03/30",
-    draw_time: "15:00",
-    next_draw: "115/04/01",
-    numbers: [3, 29, 33, 27, 30],
-    special_number: null,
-    bgColor: "#E0E9AA",
-    logo: "/images/logos/539lotto.png"
-  },
-  {
-    name: "39樂合彩",
-    nameColor: "#f57c00",
-    draw_term: "115000079",
-    draw_date: "115/03/30",
-    draw_time: "15:00",
-    next_draw: "115/04/01",
-    numbers: [29, 27, 3, 33, 22],
-    special_number: null,
-    bgColor: "#D8D8D8",
-    logo: "/images/logos/39lotto.png"
-  },
-  {
-    name: "3星彩",
-    nameColor: "#c8a000",
-    draw_term: "115000079",
-    draw_date: "115/03/30",
-    draw_time: "13:30",
-    next_draw: "115/04/01",
-    numbers: [3, 2, 9],
-    special_number: null,
-    showSortButtons: false,
-    bgColor: "#FFD269",
-    logo: "/images/logos/3starts.png"
-  },
-  {
-    name: "4星彩",
-    nameColor: "#e65100",
-    draw_term: "115000079",
-    draw_date: "115/03/30",
-    draw_time: "13:30",
-    next_draw: "115/04/01",
-    numbers: [3, 2, 9, 7],
-    special_number: null,
-    showSortButtons: false,
-    bgColor: "#FFD269",
-    logo: "/images/logos/4starts.png"
-  }
-]
+// --- Mock Data（未來換成 useFetch('/api/games')）---
+//  const { data } = await useFetch('/api/games')
+import { mockGames } from "~/data/mockGames"
+const { twiceWeekly: gamesTwiceWeekly, daily: gamesDaily } = mockGames
 
 useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
 </script>
@@ -135,7 +37,7 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
   <div class="space-y-3 flex flex-col w-full max-w-[1200px] mx-auto px-2 sm:px-4">
     <!-- Countdown Banner -->
     <div
-      class="w-full flex flex-col sm:flex-row items-center justify-center sm:justify-around px-6 py-4 sm:py-0 gap-3"
+      class="w-full flex flex-col sm:flex-row items-center justify-center sm:justify-around px-6 py-4 sm:py-0 gap-3 mb-[26px]"
       style="
         min-height: 151px;
         background: linear-gradient(180deg, #9ce2f9 0%, #daf6f0 100%);
@@ -154,29 +56,34 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
     </div>
 
     <!-- 每五分鐘開獎一次 -->
-    <div class="m-4">
-      <SectionBanner>每五分鐘開獎一次</SectionBanner>
+    <SectionBanner>每五分鐘開獎一次</SectionBanner>
+    <BingoBingoCard
+      draw_term="115018164"
+      draw_date="115/03/31(二)"
+      draw_time="15:00"
+      next_draw_date="115/03/31(二)"
+      next_draw_time="15:10"
+      :numbers="[13, 27, 28, 41, 26, 16, 22, 31, 2, 36, 27, 10, 9, 6, 24, 12, 37, 25, 22]"
+      :special_number="1"
+      :super_prize="1"
+      guess_big_small="-"
+      guess_odd_even="單"
+    />
+
+    <!-- 每週開獎兩次 -->
+    <div class="mt-[26px]">
+      <SectionBanner>每週開獎兩次</SectionBanner>
     </div>
+    <!-- 威力彩 全寬 -->
+    <LotteryGameCard :game="gamesTwiceWeekly[0]" :full-width="true" />
+    <!-- 大樂透 + 49樂合彩 -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <!-- BingoBingo 獨立元件 -->
-      <BingoBingoCard
-        draw_term="115018164"
-        draw_date="115/03/31(二)"
-        draw_time="15:00"
-        next_draw_date="115/03/31(二)"
-        next_draw_time="15:10"
-        :numbers="[13, 27, 28, 41, 26, 16, 22, 31, 2, 36, 27, 10, 9, 6, 24, 12, 37, 25, 22]"
-        :special_number="1"
-        :super_prize="1"
-        guess_big_small="-"
-        guess_odd_even="單"
-      />
-      <!-- 威力彩 -->
-      <LotteryGameCard :game="games5min[1]" />
+      <LotteryGameCard :game="gamesTwiceWeekly[1]" />
+      <LotteryGameCard :game="gamesTwiceWeekly[2]" />
     </div>
 
     <!-- 每日開獎一次 -->
-    <div class="m-4">
+    <div class="mt-[26px]">
       <SectionBanner>每日開獎一次</SectionBanner>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">

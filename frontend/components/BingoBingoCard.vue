@@ -22,12 +22,12 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <div
-    class="overflow-hidden w-full max-w-[595px] mx-auto"
+    class="overflow-hidden w-full max-w-[1200px] mx-auto"
     style="background-color: #f1e5ff; border-radius: 3px; box-shadow: 0px 2.5px 5.5px 0px rgba(0, 0, 0, 0.25)"
   >
     <!-- Logo -->
     <div class="flex justify-center pt-4 pb-2">
-      <img src="/images/logos/bingobingo.png" alt="BingoBingo" class="w-[200px] h-[80px] object-contain" />
+      <img src="/images/logos/bingobingo.png" alt="BingoBingo" class="w-[250px] h-[130px] object-contain" />
     </div>
 
     <!-- Draw info bar -->
@@ -36,7 +36,7 @@ withDefaults(defineProps<Props>(), {
       :drawTime="draw_time"
       :drawTerm="draw_term"
       :nextDraw="`${next_draw_date}${next_draw_time}`"
-      class="w-[507px] ms-[46px]"
+      class="sm:max-w-[965px] sm:ms-[100px] mx-auto"
     />
 
     <!-- 彩球排列 -->
@@ -46,29 +46,33 @@ withDefaults(defineProps<Props>(), {
       </div>
       <div class="flex flex-col items-center">
         <LotteryBall :number="special_number" type="special" size="md" />
-        <span class="text-[20px] text-red-500 font-bold mt-0.5">特別號</span>
+        <span class="text-[12px] sm:text-[20px] text-red-500 font-bold mt-0.5">特別號</span>
       </div>
     </div>
 
     <!-- Bottom: 超級獎號 / 猜大小 / 猜單雙 -->
-    <div class="flex items-center gap-4 px-6 pb-4 text-[25px] text-gray-700 ms-[20px]">
-      <span class="font-medium">超級獎號</span>
-      <LotteryBall :number="super_prize" type="special" size="md" class="w-[55px] h-[55px]" />
-
-      <span class="font-medium">猜大小</span>
-      <div
-        class="w-[55px] h-[55px] rounded-full flex items-center justify-center text-[25px] font-bold text-gray-700 shrink-0"
-        style="background-color: #f9d71c"
-      >
-        {{ guess_big_small }}
+    <div class="flex pb-6 text-[13px] sm:text-[25px] text-gray-700">
+      <div class="flex-1 flex items-center justify-center gap-2">
+        <span class="font-medium">超級獎號</span>
+        <LotteryBall :number="super_prize" type="special" size="md" />
       </div>
-
-      <span class="font-medium">猜單雙</span>
-      <div
-        class="w-[55px] h-[55px] rounded-full flex items-center justify-center text-[25px] font-bold text-white shrink-0"
-        style="background-color: #26a69a"
-      >
-        {{ guess_odd_even }}
+      <div class="flex-1 flex items-center justify-center gap-2">
+        <span class="font-medium">猜大小</span>
+        <div
+          class="w-[55px] h-[55px] rounded-full flex items-center justify-center text-[25px] font-bold text-gray-700 shrink-0"
+          style="background-color: #f9d71c"
+        >
+          {{ guess_big_small }}
+        </div>
+      </div>
+      <div class="flex-1 flex items-center justify-center gap-2">
+        <span class="font-medium">猜單雙</span>
+        <div
+          class="w-[55px] h-[55px] rounded-full flex items-center justify-center text-[25px] font-bold text-white shrink-0"
+          style="background-color: #26a69a"
+        >
+          {{ guess_odd_even }}
+        </div>
       </div>
     </div>
   </div>

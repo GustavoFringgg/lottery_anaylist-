@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full mt-10 my-4" style="height: 63px">
+  <div class="relative w-full mt-10 my-3" style="height: 63px">
     <!-- Group 88 緞帶兩端裝飾（底層） -->
     <img src="/images/logos/Group88.png" class="absolute inset-0 w-full h-full z-10" style="object-fit: fill" alt="" />
     <!-- 漸層色塊 + 文字 一起往上移 10px -->
