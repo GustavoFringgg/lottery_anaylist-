@@ -60,7 +60,7 @@ withDefaults(defineProps<Props>(), {
       <div class="flex-1 flex items-center justify-center gap-2">
         <span class="font-bold">猜大小</span>
         <div
-          class="w-[55px] h-[55px] rounded-full flex items-center justify-center text-[40px] font-bold text-gray-700 shrink-0"
+          class="w-[36px] h-[36px] text-[18px] sm:w-[55px] sm:h-[55px] sm:text-[40px] rounded-full flex items-center justify-center font-bold text-gray-700 shrink-0"
           style="background-color: #f9d71c"
         >
           {{ guess_big_small }}
@@ -69,7 +69,7 @@ withDefaults(defineProps<Props>(), {
       <div class="flex-1 flex items-center justify-center gap-2">
         <span class="font-bold">猜單雙</span>
         <div
-          class="w-[55px] h-[55px] rounded-full flex items-center justify-center text-[25px] font-bold text-white shrink-0"
+          class="w-[36px] h-[36px] text-[14px] sm:w-[55px] sm:h-[55px] sm:text-[25px] rounded-full flex items-center justify-center font-bold text-white shrink-0"
           style="background-color: #26a69a"
         >
           {{ guess_odd_even }}
