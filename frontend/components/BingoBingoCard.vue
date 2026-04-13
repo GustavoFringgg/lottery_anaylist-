@@ -35,7 +35,7 @@ withDefaults(defineProps<Props>(), {
       :drawDate="draw_date"
       :drawTime="draw_time"
       :drawTerm="draw_term"
-      :nextDraw="`${next_draw_date}(${next_draw_time})`"
+      :nextDraw="`${next_draw_date}${next_draw_time}`"
       class="w-[507px] ms-[46px]"
     />
 

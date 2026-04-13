@@ -162,7 +162,7 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
       <BingoBingoCard
         draw_term="115018164"
         draw_date="115/03/31(二)"
-        draw_time="15:0"
+        draw_time="15:00"
         next_draw_date="115/03/31(二)"
         next_draw_time="15:10"
         :numbers="[13, 27, 28, 41, 26, 16, 22, 31, 2, 36, 27, 10, 9, 6, 24, 12, 37, 25, 22]"
