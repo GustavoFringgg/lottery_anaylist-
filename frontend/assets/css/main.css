@@ -15,7 +15,9 @@
   }
 
   .game-card {
-    @apply bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100;
+    @apply bg-white overflow-hidden;
+    border-radius: 3px;
+    box-shadow: 0px 2.5px 5.5px 0px rgba(0, 0, 0, 0.25);
   }
 
   .draw-info-bar {
@@ -24,18 +26,26 @@
 
   .btn-sort {
     @apply flex-1 text-sm font-semibold transition-colors;
-    height: 151px;
+    height: 92px;
     background-color: #d9d9d9;
-    color: #26a69a;
+    color: #2a716d;
+    border: 2.5px solid #00c296;
+  }
+
+  @screen sm {
+    .btn-sort {
+      height: 151px;
+    }
   }
 
   .btn-sort:hover {
     background-color: #c4c4c4;
-    color: #26a69a;
+    color: #2a716d;
   }
 
   .btn-sort.active {
-    background-color: #26a69a;
+    background-color: #00c296;
     color: #ffffff;
+    border-color: transparent;
   }
 }

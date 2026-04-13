@@ -18,3 +18,17 @@ backend/.env
 # Misc
 .DS_Store
 *.log
+
+
+# Claude Code (personal workflow commands)
+.claude/
+gemini-review.skill
+gemini-review/
+
+# Docker
+postgres_data/
+.env
+
+# macOS
+.DS_Store
+**/.DS_Store

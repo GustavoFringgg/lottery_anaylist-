@@ -3,7 +3,7 @@ const sortMode = defineModel<'size' | 'draw'>({ default: 'draw' })
 </script>
 
 <template>
-  <div class="flex border-t border-gray-100">
+  <div class="flex">
     <button
       class="btn-sort"
       :class="{ active: sortMode === 'size' }"

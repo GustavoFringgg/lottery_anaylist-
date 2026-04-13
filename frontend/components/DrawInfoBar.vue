@@ -13,11 +13,10 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div
-    class="px-3 py-2 text-sm text-gray-700"
-    style="background: linear-gradient(180deg, #e0f7f4 0%, #c8eef9 100%); border-bottom: 1px solid #a0d8ef;"
+  <div class="mx-4 my-2.5 rounded px-3 py-2"
+    style="background: linear-gradient(to top, #daf6f0, #9ce2f9); border: 3px solid white; border-radius: 3px;"
   >
-    <div class="font-medium">{{ drawDate }} {{ drawTime }}　第{{ drawTerm }}期</div>
-    <div class="text-xs text-gray-500 mt-0.5">{{ nextDrawLabel }}{{ nextDraw }}</div>
+    <div class="text-xs font-bold text-center" style="color: #626262;">{{ drawDate }} {{ drawTime }}　第{{ drawTerm }}期</div>
+    <div class="text-[10px] font-bold text-center mt-0.5" style="color: #626262;">{{ nextDrawLabel }}{{ nextDraw }}</div>
   </div>
 </template>

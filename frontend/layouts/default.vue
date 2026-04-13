@@ -6,12 +6,12 @@
       <!-- 手機版漢堡選單 -->
       <button
         class="sm:hidden absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex flex-col items-center justify-center gap-1.5"
-        style="background-color: #F5C518;"
+        style="background-color: #ffe868;"
         aria-label="選單"
       >
-        <span class="block w-5 h-0.5 bg-white rounded"></span>
-        <span class="block w-5 h-0.5 bg-white rounded"></span>
-        <span class="block w-5 h-0.5 bg-white rounded"></span>
+        <span class="block w-5 h-0.5 rounded" style="background-color: #00c296;"></span>
+        <span class="block w-5 h-0.5 rounded" style="background-color: #00c296;"></span>
+        <span class="block w-5 h-0.5 rounded" style="background-color: #00c296;"></span>
       </button>
     </header>
 
@@ -21,7 +21,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="py-4 text-center text-xs text-gray-500">
+    <footer class="py-4 text-center text-xs text-white" style="background-color: #59ADBC;">
       Copyright ©Liyaodata All Rights Reserved.
     </footer>
   </div>
