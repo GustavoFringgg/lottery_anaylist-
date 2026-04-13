@@ -71,8 +71,8 @@ const gamesDaily = [
     draw_date: "115/03/27",
     draw_time: "21:30",
     next_draw: "115/03/31",
-    numbers: [3, 29, 33, 27],
-    special_number: 9,
+    numbers: [3, 29, 33, 27, 2, 9],
+    special_number: null,
     bgColor: "#FFB59E",
     logo: "/images/logos/49lotto.png"
   },
@@ -95,7 +95,7 @@ const gamesDaily = [
     draw_date: "115/03/30",
     draw_time: "15:00",
     next_draw: "115/04/01",
-    numbers: [29, 27, 3, 33],
+    numbers: [29, 27, 3, 33, 22],
     special_number: null,
     bgColor: "#D8D8D8",
     logo: "/images/logos/39lotto.png"
@@ -132,7 +132,7 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
 </script>
 
 <template>
-  <div class="space-y-3">
+  <div class="space-y-3 flex flex-col w-full max-w-[1200px] mx-auto px-2 sm:px-4">
     <!-- Countdown Banner -->
     <div
       class="w-full flex flex-col sm:flex-row items-center justify-center sm:justify-around px-6 py-4 sm:py-0 gap-3"
