@@ -10,6 +10,7 @@ interface Game {
   special_number: number | null
   showSortButtons?: boolean
   bgColor?: string
+  logo?: string
 }
 const props = defineProps<{ game: Game }>()
 
@@ -21,14 +22,13 @@ const displayNumbers = computed(() =>
 </script>
 
 <template>
-  <div class="game-card flex flex-col w-full max-w-[748px] mx-auto" :style="{ backgroundColor: game.bgColor ?? '#ffffff', borderRadius: '5px' }">
-    <!-- Game logo / name -->
-    <div class="py-2.5 px-3 text-center">
-      <span class="text-base font-extrabold tracking-wide" :style="{ color: game.nameColor }">
-        {{ game.name }}
-      </span>
+  <div
+    class="game-card flex flex-col w-full max-w-[748px] mx-auto"
+    :style="{ backgroundColor: game.bgColor ?? '#ffffff', borderRadius: '5px' }"
+  >
+    <div class="flex justify-center pt-4 pb-2">
+      <img v-if="game.logo" :src="game.logo" :alt="game.name" class="h-[120px] w-auto object-contain" />
     </div>
-
     <!-- Draw info bar -->
     <DrawInfoBar
       :drawDate="game.draw_date"

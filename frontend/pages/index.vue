@@ -46,7 +46,8 @@ const games5min = [
     next_draw: "115/03/31",
     numbers: [3, 29, 33, 27, 30, 17],
     special_number: 9,
-    bgColor: "#B6D7FF"
+    bgColor: "#B6D7FF",
+    logo: "/images/logos/power-lotto.png"
   }
 ]
 
@@ -60,7 +61,8 @@ const gamesDaily = [
     next_draw: "115/03/31",
     numbers: [3, 29, 33, 27, 30, 17],
     special_number: 9,
-    bgColor: "#FFDFAA"
+    bgColor: "#FFDFAA",
+    logo: "/images/logos/lotto.png"
   },
   {
     name: "49樂合彩",
@@ -71,7 +73,8 @@ const gamesDaily = [
     next_draw: "115/03/31",
     numbers: [3, 29, 33, 27],
     special_number: 9,
-    bgColor: "#FFB59E"
+    bgColor: "#FFB59E",
+    logo: "/images/logos/49lotto.png"
   },
   {
     name: "今彩539",
@@ -82,7 +85,8 @@ const gamesDaily = [
     next_draw: "115/04/01",
     numbers: [3, 29, 33, 27, 30],
     special_number: null,
-    bgColor: "#E0E9AA"
+    bgColor: "#E0E9AA",
+    logo: "/images/logos/539lotto.png"
   },
   {
     name: "39樂合彩",
@@ -93,7 +97,8 @@ const gamesDaily = [
     next_draw: "115/04/01",
     numbers: [29, 27, 3, 33],
     special_number: null,
-    bgColor: "#D8D8D8"
+    bgColor: "#D8D8D8",
+    logo: "/images/logos/39lotto.png"
   },
   {
     name: "3星彩",
@@ -105,7 +110,8 @@ const gamesDaily = [
     numbers: [3, 2, 9],
     special_number: null,
     showSortButtons: false,
-    bgColor: "#FFD269"
+    bgColor: "#FFD269",
+    logo: "/images/logos/3starts.png"
   },
   {
     name: "4星彩",
@@ -117,7 +123,8 @@ const gamesDaily = [
     numbers: [3, 2, 9, 7],
     special_number: null,
     showSortButtons: false,
-    bgColor: "#FFD269"
+    bgColor: "#FFD269",
+    logo: "/images/logos/4starts.png"
   }
 ]
 

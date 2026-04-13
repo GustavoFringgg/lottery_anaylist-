@@ -6,8 +6,8 @@
     <div
       class="absolute inset-y-0 z-20 flex items-center justify-center"
       style="
-        left: 5%;
-        right: 5%;
+        left: 10%;
+        right: 10%;
         transform: translateY(-15px);
         border-radius: 10px;
         background: linear-gradient(90deg, #64cbaa 0%, #8bffda 50%, #64cbaa 100%);
