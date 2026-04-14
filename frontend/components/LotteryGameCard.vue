@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { isMobile } = useMobile(440)
 interface Game {
   name: string
   nameColor: string
@@ -21,11 +22,21 @@ const displayNumbers = computed(() =>
 )
 
 const gridStyle = computed(() => {
-  if (props.fullWidth) {
-    const total = props.game.numbers.length + (props.game.special_number !== null ? 1 : 0)
+  const total = props.game.numbers.length + (props.game.special_number !== null ? 1 : 0)
+
+  if (props.fullWidth && !isMobile.value) {
     return { gridTemplateColumns: `repeat(${total}, 55px)` }
   }
-  const cols = props.game.numbers.length <= 5 ? props.game.numbers.length : 4
+
+  if (isMobile.value) {
+    return {
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center"
+    }
+  }
+
+  const cols = Math.min(props.game.numbers.length, 5)
   return { gridTemplateColumns: `repeat(${cols}, 55px)` }
 })
 </script>
@@ -51,7 +62,7 @@ const gridStyle = computed(() => {
 
     <!-- Balls -->
     <div
-      class="grid justify-center gap-x-[15px] sm:gap-x-[59px] gap-y-[15px] sm:gap-y-[51px] px-4 sm:px-6 py-4"
+      class="grid justify-center gap-x-[15px] sm:gap-x-[40px] gap-y-[15px] sm:gap-y-[51px] px-4 sm:px-6 py-4"
       :style="gridStyle"
     >
       <div v-for="(num, i) in displayNumbers" :key="i" class="flex flex-col items-center">
