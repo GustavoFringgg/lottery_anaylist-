@@ -52,15 +52,15 @@ withDefaults(defineProps<Props>(), {
     </div>
 
     <!-- Bottom: 超級獎號 / 猜大小 / 猜單雙 -->
-    <div class="flex pb-6 text-[13px] sm:text-[25px] text-gray-700 max-w-[720px] mx-auto">
-      <div class="flex-1 flex items-center justify-center gap-2">
+    <div class="flex pb-6 text-[15px] sm:text-[25px] text-gray-700 max-w-[720px] mx-auto">
+      <div class="flex-1 flex items-center justify-center gap-2 ms-1">
         <span class="font-bold">超級獎號</span>
         <LotteryBall :number="super_prize" type="special" size="md" />
       </div>
       <div class="flex-1 flex items-center justify-center gap-2">
         <span class="font-bold">猜大小</span>
         <div
-          class="w-[36px] h-[36px] text-[18px] sm:w-[55px] sm:h-[55px] sm:text-[40px] rounded-full flex items-center justify-center font-bold text-gray-700 shrink-0"
+          class="w-[50px] h-[50px] text-[18px] sm:w-[55px] sm:h-[55px] sm:text-[40px] rounded-full flex items-center justify-center font-bold text-gray-700 shrink-0"
           style="background-color: #f9d71c"
         >
           {{ guess_big_small }}
@@ -69,7 +69,7 @@ withDefaults(defineProps<Props>(), {
       <div class="flex-1 flex items-center justify-center gap-2">
         <span class="font-bold">猜單雙</span>
         <div
-          class="w-[36px] h-[36px] text-[14px] sm:w-[55px] sm:h-[55px] sm:text-[25px] rounded-full flex items-center justify-center font-bold text-white shrink-0"
+          class="w-[50px] h-[50px] text-[20px] sm:w-[55px] sm:h-[55px] sm:text-[25px] rounded-full flex items-center justify-center font-bold text-white shrink-0"
           style="background-color: #26a69a"
         >
           {{ guess_odd_even }}
