@@ -1,28 +1,17 @@
-import json
 from fastapi import APIRouter, Depends, WebSocket, WebSocketDisconnect
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, text
 
 from core.database import get_db
-from core.redis_client import get_redis
 from core.ws_manager import ws_manager
 from models.lottery import DrawResult
 from schemas.lottery import DrawResultResponse, HotNumber, HistoryResponse
 
 router = APIRouter(prefix="/api/lottery", tags=["lottery"])
 
-CACHE_TTL = 30  # seconds
-
 
 @router.get("/latest", response_model=DrawResultResponse)
 async def get_latest(db: AsyncSession = Depends(get_db)):
-    redis = await get_redis()
-
-    # Try cache first
-    cached = await redis.get("latest_draw")
-    if cached:
-        return json.loads(cached)
-
     result = await db.execute(
         select(DrawResult).order_by(DrawResult.draw_date.desc()).limit(1)
     )
@@ -36,15 +25,13 @@ async def get_latest(db: AsyncSession = Depends(get_db)):
             special_number=None,
         )
 
-    data = DrawResultResponse(
+    return DrawResultResponse(
         draw_term=draw.draw_term,
         draw_date=str(draw.draw_date),
         numbers=draw.numbers,
         special_number=draw.special_number,
         source=draw.source,
     )
-    await redis.setex("latest_draw", CACHE_TTL, data.model_dump_json())
-    return data
 
 
 @router.get("/history", response_model=HistoryResponse)
@@ -75,13 +62,6 @@ async def get_history(limit: int = 10, offset: int = 0, db: AsyncSession = Depen
 
 @router.get("/hot-numbers", response_model=list[HotNumber])
 async def get_hot_numbers(periods: int = 30, db: AsyncSession = Depends(get_db)):
-    redis = await get_redis()
-    cache_key = f"hot_numbers:{periods}"
-    cached = await redis.get(cache_key)
-    if cached:
-        return json.loads(cached)
-
-    # Unnest numbers array and count occurrences
     query = text("""
         WITH recent AS (
             SELECT unnest(numbers) AS num
@@ -99,7 +79,7 @@ async def get_hot_numbers(periods: int = 30, db: AsyncSession = Depends(get_db))
     rows = result.fetchall()
 
     max_count = rows[0][1] if rows else 1
-    hot = [
+    return [
         HotNumber(
             number=row[0],
             count=row[1],
@@ -107,9 +87,6 @@ async def get_hot_numbers(periods: int = 30, db: AsyncSession = Depends(get_db))
         )
         for row in rows
     ]
-
-    await redis.setex(cache_key, 300, json.dumps([h.model_dump() for h in hot]))
-    return hot
 
 
 @router.websocket("/ws")

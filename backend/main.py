@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from core.config import settings
 from core.database import engine, Base
-from core.redis_client import close_redis
 from routers.lottery import router as lottery_router
 
 
@@ -15,7 +14,6 @@ async def lifespan(app: FastAPI):
         await conn.run_sync(Base.metadata.create_all)
     yield
     # Shutdown
-    await close_redis()
     await engine.dispose()
 
 
