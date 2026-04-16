@@ -29,7 +29,7 @@ Lottery_Anaylist/
 cd backend
 
 # 建立虛擬環境（第一次）
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate       # macOS / Linux
 # venv\Scripts\activate        # Windows
 
@@ -40,10 +40,11 @@ pip install -r requirements.txt
 cp .env.example .env
 
 # 啟動開發伺服器（port 8000）
-uvicorn main:app --reload --port 8000
+python3 main.py
 ```
 
 預設連線：
+
 - PostgreSQL：`postgresql+asyncpg://postgres:postgres@localhost:5432/lottery`
 - Redis：`redis://localhost:6379`
 
@@ -80,13 +81,13 @@ npm run dev:backend
 
 ## 常用指令
 
-| 指令 | 說明 |
-|------|------|
-| `npm run dev:frontend` | 啟動前端開發伺服器 |
-| `npm run dev:backend` | 啟動後端開發伺服器 |
-| `cd frontend && npm run build` | 建置前端 |
-| `cd frontend && npm run generate` | 靜態輸出前端 |
-| `cd frontend && npm run preview` | 預覽前端建置結果 |
+| 指令                              | 說明               |
+| --------------------------------- | ------------------ |
+| `npm run dev:frontend`            | 啟動前端開發伺服器 |
+| `npm run dev:backend`             | 啟動後端開發伺服器 |
+| `cd frontend && npm run build`    | 建置前端           |
+| `cd frontend && npm run generate` | 靜態輸出前端       |
+| `cd frontend && npm run preview`  | 預覽前端建置結果   |
 
 ---
 
