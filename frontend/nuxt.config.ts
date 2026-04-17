@@ -31,11 +31,7 @@ export default defineNuxtConfig({
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { name: "description", content: "全台最快即時台彩開獎資訊、歷史數據分析、號碼統計" }
       ],
-      link: [
-        { rel: "preconnect", href: "https://fonts.googleapis.com" },
-        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" }
-      ]
+      link: [{ rel: "icon", type: "image/png", href: "/images/logos/favicon.png" }]
     }
   },
 
