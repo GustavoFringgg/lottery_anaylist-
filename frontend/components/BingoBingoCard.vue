@@ -22,12 +22,18 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <div
-    class="overflow-hidden w-full max-w-[1200px] mx-auto"
+    class="overflow-hidden w-full max-w-[1200px] mx-auto relative"
     style="background-color: #f1e5ff; border-radius: 3px; box-shadow: 0px 2.5px 5.5px 0px rgba(0, 0, 0, 0.25)"
   >
+    <div class="absolute top-1 left-1 sm:top-1 sm:left-3"><slot /></div>
+
     <!-- Logo -->
     <div class="flex justify-center pt-4 pb-2">
-      <img src="/images/logos/bingobingo.png" alt="BingoBingo" class="w-[250px] h-[130px] object-contain" />
+      <img
+        src="/images/logos/bingobingo.png"
+        alt="BingoBingo"
+        class="w-[230px] h-[110px] sm:w-[250px] sm:h-[130px] object-contain"
+      />
     </div>
 
     <!-- Draw info bar -->

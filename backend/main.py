@@ -1,41 +1,60 @@
+import logging
+import os
+import uvicorn
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Request
+from fastapi.responses import JSONResponse
 
-from core.config import settings
-from core.database import engine, Base
-from core.redis_client import close_redis
-from routers.lottery import router as lottery_router
+from app.core.config import settings
+from app.core.database import engine
+from app.api.routers import lottery as lottery_router,health
+from app.models import lottery
+from app.core.database import init_db                                                                       
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s - %(message)s",
+)
+logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: create tables
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    # 啟動時執行（yield 之前）
+    await init_db()
+    logger.info("Service started")
     yield
-    # Shutdown
-    await close_redis()
-    await engine.dispose()
+    # 關閉時執行（yield 之後）
+    logger.info("Service stopped")
+
 
 
 app = FastAPI(
-    title="台彩分析 API",
+    title=settings.PROJECT_NAME,
     version="0.1.0",
+    description="Lottery Analysis API",
     lifespan=lifespan,
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins,
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(lottery_router)
+# app.include_router(lottery_router.router,prefix='/api/lottery', tags=['lottery_router'])
+app.include_router(health.router,prefix='/api/health', tags=['health'])
 
 
-@app.get("/health")
-async def health():
-    return {"status": "ok"}
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=port,
+        reload=True,
+    )

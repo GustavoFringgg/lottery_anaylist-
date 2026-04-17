@@ -28,24 +28,33 @@ const gridStyle = computed(() => {
     return { gridTemplateColumns: `repeat(${total}, 55px)` }
   }
 
+  const needWrap = props.game.numbers.length > 4
+
   if (isMobile.value) {
+    const needWrapMobile = props.game.numbers.length > 5
     return {
       display: "flex",
       flexWrap: "wrap",
-      justifyContent: "center"
+      justifyContent: "center",
+      ...(needWrapMobile ? { maxWidth: "297px", margin: "0 auto" } : {})
     }
   }
 
-  const cols = Math.min(props.game.numbers.length, 5)
-  return { gridTemplateColumns: `repeat(${cols}, 55px)` }
+  return {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    ...(needWrap ? { maxWidth: "388px", margin: "0 auto" } : {})
+  }
 })
 </script>
 
 <template>
   <div
-    class="game-card flex flex-col w-full"
+    class="game-card flex flex-col w-full relative"
     :style="{ backgroundColor: game.bgColor ?? '#ffffff', borderRadius: '5px' }"
   >
+    <div class="absolute top-1 left-1 sm:top-1 sm:left-3"><slot /></div>
     <div class="flex justify-center pt-4 pb-2">
       <img v-if="game.logo" :src="game.logo" :alt="game.name" class="w-[200px] h-[80px] object-contain" />
     </div>
@@ -62,10 +71,10 @@ const gridStyle = computed(() => {
 
     <!-- Balls -->
     <div
-      class="grid justify-center gap-x-[15px] sm:gap-x-[40px] gap-y-[15px] sm:gap-y-[51px] px-4 sm:px-6 py-4"
+      class="grid justify-center gap-x-[10px] sm:gap-x-[40px] gap-y-[15px] sm:gap-y-[51px] px-4 sm:px-6 py-4"
       :style="gridStyle"
     >
-      <div v-for="(num, i) in displayNumbers" :key="i" class="flex flex-col items-center">
+      <div v-for="(num, i) in displayNumbers" :key="i" class="flex flex-col items-center w-[55px]">
         <LotteryBall :number="num" type="normal" size="md" />
       </div>
       <div v-if="game.special_number !== null" class="flex flex-col items-center w-[60px]">

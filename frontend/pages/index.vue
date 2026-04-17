@@ -20,24 +20,27 @@ const updateCountdown = () => {
 onMounted(() => {
   updateCountdown()
   const timer = setInterval(updateCountdown, 1000)
+
   onUnmounted(() => clearInterval(timer))
 })
 
 const pad = (n: number) => String(n).padStart(2, "0")
+import { mockGames, type GameData } from "~/data/mockGames"
+
+const todayWeekday = new Date().getDay() //0~6
+const isDrawTody = (game: GameData) => game.draw_days?.includes(todayWeekday) ?? false
 
 // --- Mock Data（未來換成 useFetch('/api/games')）---
 //  const { data } = await useFetch('/api/games')
-import { mockGames } from "~/data/mockGames"
-const { twiceWeekly: gamesTwiceWeekly, daily: gamesDaily } = mockGames
+const { featured: gamesFeatured, grid: gamesGrid } = mockGames
 
 useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
 </script>
 
 <template>
   <div class="space-y-3 flex flex-col w-full max-w-[1200px] mx-auto px-2 sm:px-4">
-    <!-- Countdown Banner -->
     <div
-      class="w-full flex flex-col sm:flex-row items-center  sm:justify-center px-6 py-4 sm:py-0 gap-x-10 mb-[26px]"
+      class="w-full flex flex-col sm:flex-row items-center sm:justify-center px-6 py-4 sm:py-0 gap-x-10 mb-[26px]"
       style="
         min-height: 151px;
         background: linear-gradient(180deg, #9ce2f9 0%, #daf6f0 100%);
@@ -45,7 +48,7 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
         border-radius: 5px;
       "
     >
-      <img src="/images/logos/jinchoi539.png" alt="今彩539" width="246" height="104" class="object-contain" />
+      <img src="../public/images/logos/jinchoi539.png" alt="今彩539" width="246" height="104" class="object-contain" />
       <div
         class="text-center"
         style="font-family: &quot;Inter&quot;, sans-serif; font-weight: 700; color: #626262"
@@ -54,8 +57,9 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
         開獎直播倒數：{{ days }} 天 {{ pad(hours) }} 時 {{ pad(minutes) }} 分 {{ pad(seconds) }} 秒
       </div>
     </div>
-
-    <SectionBanner>每五分鐘開獎一次</SectionBanner>
+    <LotteryGameCard v-for="game in gamesFeatured" :key="game.name + game.draw_term" :game="game" :full-width="true">
+      <DrawDateButton class="mt-[5px] sm:mt-[10px]" v-if="isDrawTody(game)">今日開獎</DrawDateButton>
+    </LotteryGameCard>
     <BingoBingoCard
       draw_term="115018164"
       draw_date="115/03/31(二)"
@@ -67,24 +71,13 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
       :super_prize="1"
       guess_big_small="-"
       guess_odd_even="單"
-    />
-
-    <div class="mt-[26px]">
-      <SectionBanner>每週開獎兩次</SectionBanner>
-    </div
-    <!-- 威力彩  -->
-    <LotteryGameCard :game="gamesTwiceWeekly[0]" :full-width="true" />
-    <!-- 大樂透 + 49樂合彩 -->
+    >
+      <DrawDateButton class="mt-[5px] sm:mt-[10px]">每五分鐘開獎</DrawDateButton>
+    </BingoBingoCard>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <LotteryGameCard :game="gamesTwiceWeekly[1]" />
-      <LotteryGameCard :game="gamesTwiceWeekly[2]" />
-    </div>
-
-    <div class="mt-[26px]">
-      <SectionBanner>每日開獎一次</SectionBanner>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <LotteryGameCard v-for="game in gamesDaily" :key="game.name + game.draw_term" :game="game" />
+      <LotteryGameCard v-for="game in gamesGrid" :key="game.name + game.draw_term" :game="game">
+        <DrawDateButton class="mt-[5px] sm:mt-[10px]" v-if="isDrawTody(game)">今日開獎</DrawDateButton>
+      </LotteryGameCard>
     </div>
   </div>
 </template>

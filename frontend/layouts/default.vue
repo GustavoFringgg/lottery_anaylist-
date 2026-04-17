@@ -2,7 +2,14 @@
   <div class="min-h-screen bg-cream">
     <!-- Header -->
     <header class="py-2.5 relative flex items-center justify-center" style="background-color: #59adbc">
-      <span class="text-white font-bold" style="font-size: 40px">LOGO</span>
+      <img
+        src="../public/images/logos/539lotto_header.png"
+        alt="今彩539"
+        width="246"
+        height="104"
+        class="object-contain"
+      />
+
       <!-- 手機版漢堡選單 -->
       <button
         class="sm:hidden absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex flex-col items-center justify-center gap-1.5"
