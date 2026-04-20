@@ -27,9 +27,6 @@
       <slot />
     </main>
 
-    <!-- Footer -->
-    <footer class="py-4 text-center text-xs text-white" style="background-color: #59adbc">
-      Copyright ©Liyaodata All Rights Reserved.
-    </footer>
+    <footer class="py-4 text-center text-xs text-white" style="background-color: #59adbc"></footer>
   </div>
 </template>
