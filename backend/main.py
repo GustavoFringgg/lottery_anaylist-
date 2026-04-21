@@ -7,12 +7,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request
 from fastapi.responses import JSONResponse
-
+from app.service.cronJob import scheduler
 from app.core.config import settings
 from app.core.database import engine
 from app.api.routers import lottery as lottery_router,health
 from app.models import lottery
-from app.core.database import init_db                                                                       
 
 logging.basicConfig(
     level=logging.INFO,
@@ -23,10 +22,11 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 啟動時執行（yield 之前）
-    await init_db()
+    # scheduler.start()    
     logger.info("Service started")
     yield
     # 關閉時執行（yield 之後）
+    # scheduler.shutdown()
     logger.info("Service stopped")
 
 
