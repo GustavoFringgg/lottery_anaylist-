@@ -6,6 +6,7 @@ from typing import Optional
 class DrawResultResponse(BaseModel):
     draw_term: str
     draw_date: str
+    next_draw_date: Optional[str] = None
     numbers: list[int]
     special_number: Optional[int]
     is_live: bool = False
