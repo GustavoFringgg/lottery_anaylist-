@@ -10,7 +10,7 @@ async def save_draws(session: AsyncSession, draws: list[dict]):
                 DrawsList.term == draw["term"]
             )
         )
-        if existing.scalar_one_or_none() is not None:
+        if existing.scalars().first() is not None:
             continue
 
         row = DrawsList(

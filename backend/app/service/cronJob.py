@@ -19,5 +19,7 @@ scheduler.add_job(run_bingo_job, "interval", minutes=5)
 scheduler.add_job(run_games_job, "cron", hour=21, minute=35)
 
 if __name__ == "__main__":
-    asyncio.run(run_games_job())
-    asyncio.run(run_bingo_job())
+    async def main():
+        await run_games_job()
+        await run_bingo_job()
+    asyncio.run(main())
