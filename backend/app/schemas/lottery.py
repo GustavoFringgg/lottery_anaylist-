@@ -1,27 +1,25 @@
 from pydantic import BaseModel
-from datetime import date
-from typing import Optional
+from datetime import datetime
 
 
-class DrawResultResponse(BaseModel):
-    draw_term: str
-    draw_date: str
-    next_draw_date: Optional[str] = None
+class DrawResponse(BaseModel):
+    game_code: int
+    term: str
+    draw_date: datetime
     numbers: list[int]
-    special_number: Optional[int]
-    is_live: bool = False
-    source: Optional[str] = None
-
-    class Config:
-        from_attributes = True
+    next_draw_date: datetime | None
 
 
-class HotNumber(BaseModel):
-    number: int
-    count: int
-    percentage: float
+class BingoResponse(BaseModel):
+    game_code: int
+    term: str
+    draw_date: datetime
+    numbers: list[int]
+    next_draw_date: datetime | None
+    lot_special: str
+    lot_big_small: str
+    lot_odd_even: str
 
 
-class HistoryResponse(BaseModel):
-    records: list[DrawResultResponse]
-    total: int
+class LatestDrawsResponse(BaseModel):
+    draws: list[DrawResponse]

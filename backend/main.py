@@ -46,7 +46,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# app.include_router(lottery_router.router,prefix='/api/lottery', tags=['lottery_router'])
+app.include_router(lottery_router.router,prefix='/api/lottery', tags=['lottery_router'])
 app.include_router(health.router,prefix='/api/health', tags=['health'])
 
 

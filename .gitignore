@@ -22,6 +22,7 @@ backend/.env
 
 # Claude Code (personal workflow commands)
 .claude/
+CLAUDE.md
 gemini-review.skill
 gemini-review/
 

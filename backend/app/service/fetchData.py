@@ -1,11 +1,12 @@
 import httpx
 from datetime import datetime
-
-LAST_NUMBER_URL = "https://api.taiwanlottery.com/TLCAPIWeB/Lottery/LastNumber"
-NEXT_DRAW_URL = "https://api.taiwanlottery.com/TLCAPIWeB/Lottery/NextDrawDate"
+from app.core.config import settings
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
+    "User-Agent": settings.HEADER_USER_AGENT,
+    "Accept": settings.HEADER_ACCEPT,
+    "Accept-Language": settings.HEADER_ACCEPT_LANGUAGE,
+    "Referer": settings.HEADER_REFERER,
 }
 
 GAME_NAMES = {
@@ -21,7 +22,7 @@ GAME_NAMES = {
 
 # TODO: 可以補上 timeout的catch
 def fetch_last_number() -> dict:
-    res = httpx.get(LAST_NUMBER_URL, headers=HEADERS, timeout=10)
+    res = httpx.get(settings.LAST_NUMBER_URL, headers=HEADERS, timeout=10)
     res.raise_for_status()
     data = res.json()
     if data["rtCode"] != 0:
@@ -30,7 +31,7 @@ def fetch_last_number() -> dict:
 
 
 def fetch_next_draw_date() -> dict:
-    res = httpx.get(NEXT_DRAW_URL, headers=HEADERS, timeout=10)
+    res = httpx.get(settings.NEXT_DRAW_URL, headers=HEADERS, timeout=10)
     res.raise_for_status()
     data = res.json()
     if data["rtCode"] != 0:
@@ -45,13 +46,11 @@ def fetch_next_draw_date() -> dict:
     return result
 
 
-def fetch_all() -> list[dict]:
+def fetch_all_withoutBingo() -> list[dict]:
     content = fetch_last_number()
     next_draw_map = fetch_next_draw_date()
 
     results = []
-
-    # 一般遊戲
     for item in content["lastNumberList"]:
         game_code = item["gameCode"]
         results.append({
@@ -62,8 +61,14 @@ def fetch_all() -> list[dict]:
             "numbers": item["lotNumber"],
             "next_draw_date": next_draw_map.get(game_code),
         })
+    return results
 
-    # BingoBingo
+
+def fetch_bingo() -> list[dict]:
+    content = fetch_last_number()
+    next_draw_map = fetch_next_draw_date()
+
+    results = []
     bingo = content["bingo"]
     game_code = bingo["gameCode"]
     results.append({
@@ -77,10 +82,9 @@ def fetch_all() -> list[dict]:
         "lot_big_small": bingo["lotBigSmall"],
         "lot_odd_even": bingo["lotOddEven"],
     })
-
     return results
 
-
 if __name__ == "__main__":
-    for draw in fetch_all():
+    for draw in fetch_all_withoutBingo():
         print(draw)
+    print(fetch_bingo())
