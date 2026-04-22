@@ -45,13 +45,11 @@ def fetch_next_draw_date() -> dict:
     return result
 
 
-def fetch_all() -> list[dict]:
+def fetch_all_withoutBingo() -> list[dict]:
     content = fetch_last_number()
     next_draw_map = fetch_next_draw_date()
 
     results = []
-
-    # 一般遊戲
     for item in content["lastNumberList"]:
         game_code = item["gameCode"]
         results.append({
@@ -62,8 +60,14 @@ def fetch_all() -> list[dict]:
             "numbers": item["lotNumber"],
             "next_draw_date": next_draw_map.get(game_code),
         })
+    return results
 
-    # BingoBingo
+
+def fetch_bingo() -> list[dict]:
+    content = fetch_last_number()
+    next_draw_map = fetch_next_draw_date()
+
+    results = []
     bingo = content["bingo"]
     game_code = bingo["gameCode"]
     results.append({
@@ -77,10 +81,9 @@ def fetch_all() -> list[dict]:
         "lot_big_small": bingo["lotBigSmall"],
         "lot_odd_even": bingo["lotOddEven"],
     })
-
     return results
 
-
 if __name__ == "__main__":
-    for draw in fetch_all():
+    for draw in fetch_all_withoutBingo():
         print(draw)
+    print(fetch_bingo())
