@@ -14,6 +14,5 @@ scheduler = AsyncIOScheduler()
 scheduler.add_job(run_job, "interval", minutes=5)
 
 
-
 if __name__ == "__main__":
     asyncio.run(run_job())
