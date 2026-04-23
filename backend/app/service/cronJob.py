@@ -17,9 +17,9 @@ async def run_bingo_job():
     async with AsyncSessionLocal() as session:
         await save_draws(session,draw)
 
-scheduler = AsyncIOScheduler()
+scheduler = AsyncIOScheduler(timezone="Asia/Taipei")
 # scheduler.add_job(run_bingo_job, "interval", minutes=5)
-scheduler.add_job(run_games_job, "cron", hour=21, minute=30)
+scheduler.add_job(run_games_job, "cron", hour=6, minute=30)
 
 if __name__ == "__main__":
     async def main():
