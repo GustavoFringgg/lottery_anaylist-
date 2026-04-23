@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     HEADER_ACCEPT: str
     HEADER_ACCEPT_LANGUAGE: str
     HEADER_REFERER: str
+    API_KEY:str | None
 
     @property
     def async_database_url(self) -> str:
