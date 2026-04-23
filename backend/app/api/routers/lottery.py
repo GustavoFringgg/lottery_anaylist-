@@ -4,11 +4,11 @@ from sqlalchemy import select, desc
 from app.core.database import get_session
 from app.models.lottery import DrawsList,BingoExtra
 from app.schemas.lottery import DrawResponse, LatestDrawsResponse,BingoResponse
-
+from app.core.security import verify_api_key
 router = APIRouter()
 
 
-@router.get("/latest", response_model=LatestDrawsResponse)
+@router.get("/latest", response_model=LatestDrawsResponse,dependencies=[Depends(verify_api_key)])
 async def get_latest(db: AsyncSession = Depends(get_session)):
     result = await db.execute(
         select(DrawsList)
@@ -30,7 +30,7 @@ async def get_latest(db: AsyncSession = Depends(get_session)):
 
     return LatestDrawsResponse(draws=draw_list)
 
-@router.get('/bingo/latest', response_model = BingoResponse )
+@router.get('/bingo/latest', response_model = BingoResponse,dependencies=[Depends(verify_api_key)])
 async def get_latest_bingo(db:AsyncSession = Depends(get_session)):
     result = await db.execute(
         select(DrawsList, BingoExtra)
