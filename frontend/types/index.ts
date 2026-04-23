@@ -1,4 +1,4 @@
-export interface DrawItem {
+export interface ApiResponseData {
   game_code: number
   term: string
   draw_date: string
@@ -6,7 +6,7 @@ export interface DrawItem {
   next_draw_date: string | null
 }
 
-export interface GameData {
+export interface CardData {
   name: string
   game_code: number
   nameColor: string

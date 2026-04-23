@@ -1,18 +1,8 @@
-import type { DrawItem, GameData } from "~/types/index"
+import type { CardData } from "~/types/index"
 
 const GAME_META: Record<
   number,
-  Omit<
-    GameData,
-    | "game_code"
-    | "draw_term"
-    | "draw_date"
-    | "draw_time"
-    | "next_draw"
-    | "numbers"
-    | "special_number"
-    | "special_number"
-  >
+  Omit<CardData, "game_code" | "draw_term" | "draw_date" | "draw_time" | "next_draw" | "numbers" | "special_number">
 > = {
   5120: {
     name: "今彩539",
@@ -81,15 +71,11 @@ const formatDate = (iso: string) => {
 const FEATURED_CODES = [5120, 5118, 5134]
 
 export const useLotteryLatest = () => {
-  const config = useRuntimeConfig()
+  const { getLatest } = useLotteryApi()
 
-  const { data, error } = useAsyncData("lottery-latest", () =>
-    $fetch<{ draws: DrawItem[] }>(`${config.public.apiBase}/api/lottery/latest`, {
-      headers: { "X-API-Key": config.public.apiKey }
-    })
-  )
+  const { data, error } = useAsyncData("lottery-latest", () => getLatest())
 
-  const games = computed<GameData[]>(() => {
+  const games = computed<CardData[]>(() => {
     if (!data.value) return []
     return data.value.draws.map((item) => {
       const meta = GAME_META[item.game_code]

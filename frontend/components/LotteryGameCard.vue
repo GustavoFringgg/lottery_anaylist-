@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { GameData } from "~/types/index"
+import type { CardData } from "~/types/index"
 const { isMobile } = useMobile(440)
 
-const props = defineProps<{ game: GameData; fullWidth?: boolean }>()
+const props = defineProps<{ game: CardData; fullWidth?: boolean }>()
 
 const sortMode = ref<"draw" | "size">("draw")
 

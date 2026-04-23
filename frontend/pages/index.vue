@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GameData } from "~/types/index"
+import type { CardData } from "~/types/index"
 
 // --- Countdown Timer ---
 const days = ref(0)
@@ -30,7 +30,7 @@ onMounted(() => {
 const pad = (n: number) => String(n).padStart(2, "0")
 
 const todayWeekday = new Date().getDay() //0~6
-const isDrawTody = (game: GameData) => game.draw_days?.includes(todayWeekday) ?? false
+const isDrawTody = (game: CardData) => game.draw_days?.includes(todayWeekday) ?? false
 const { featured: gamesFeatured, grid: gamesGrid } = useLotteryLatest()
 
 useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
