@@ -22,11 +22,11 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 啟動時執行（yield 之前）
-    # scheduler.start()    
+    scheduler.start()    
     logger.info("Service started")
     yield
     # 關閉時執行（yield 之後）
-    # scheduler.shutdown()
+    scheduler.shutdown()
     logger.info("Service stopped")
 
 
