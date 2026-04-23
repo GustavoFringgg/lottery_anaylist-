@@ -1,19 +1,8 @@
 <script setup lang="ts">
+import type { CardData } from "~/types/index"
 const { isMobile } = useMobile(440)
-interface Game {
-  name: string
-  nameColor: string
-  draw_term: string
-  draw_date: string
-  draw_time: string
-  next_draw: string
-  numbers: number[]
-  special_number: number | null
-  showSortButtons?: boolean
-  bgColor?: string
-  logo?: string
-}
-const props = defineProps<{ game: Game; fullWidth?: boolean }>()
+
+const props = defineProps<{ game: CardData; fullWidth?: boolean }>()
 
 const sortMode = ref<"draw" | "size">("draw")
 

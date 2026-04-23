@@ -11,9 +11,9 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    apiKey: process.env.NUXT_API_KEY || "",  // server only
     public: {
-      apiBase: process.env.API_BASE_URL || "http://localhost:8000",
-      wsBase: process.env.WS_BASE_URL || "ws://localhost:8000"
+      apiBase: process.env.API_BASE_URL || "https://lottery-anaylist.onrender.com"
     }
   },
   /*   環境變數管理，這是 Nuxt 特有的。

@@ -75,6 +75,30 @@ GET /api/lottery/bingo/latest
 
 ---
 
+## API Key 驗證
+
+所有請求必須帶以下 header：
+
+```
+X-API-Key: <your-api-key>
+```
+
+未帶或錯誤會回傳 `403 Forbidden`。
+
+前端環境變數建議：
+```
+NUXT_PUBLIC_API_KEY=your-api-key
+```
+
+請求範例：
+```ts
+const { data } = await useFetch('/api/lottery/latest', {
+  headers: { 'X-API-Key': useRuntimeConfig().public.apiKey }
+})
+```
+
+---
+
 ## 前端注意事項
 
 - `draw_date` / `next_draw_date` 為 ISO 8601 格式（`datetime`），需自行格式化顯示

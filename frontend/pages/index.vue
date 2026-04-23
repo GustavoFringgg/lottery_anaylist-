@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import type { CardData } from "~/types/index"
+
 // --- Countdown Timer ---
 const days = ref(0)
 const hours = ref(0)
 const minutes = ref(0)
 const seconds = ref(0)
 
+//
 const updateCountdown = () => {
   const now = new Date()
   const target = new Date()
@@ -16,7 +19,7 @@ const updateCountdown = () => {
   minutes.value = Math.floor((diff % 3600000) / 60000)
   seconds.value = Math.floor((diff % 60000) / 1000)
 }
-
+//
 onMounted(() => {
   updateCountdown()
   const timer = setInterval(updateCountdown, 1000)
@@ -25,14 +28,10 @@ onMounted(() => {
 })
 
 const pad = (n: number) => String(n).padStart(2, "0")
-import { mockGames, type GameData } from "~/data/mockGames"
 
 const todayWeekday = new Date().getDay() //0~6
-const isDrawTody = (game: GameData) => game.draw_days?.includes(todayWeekday) ?? false
-
-// --- Mock Data（未來換成 useFetch('/api/games')）---
-//  const { data } = await useFetch('/api/games')
-const { featured: gamesFeatured, grid: gamesGrid } = mockGames
+const isDrawTody = (game: CardData) => game.draw_days?.includes(todayWeekday) ?? false
+const { featured: gamesFeatured, grid: gamesGrid } = useLotteryLatest()
 
 useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
 </script>
