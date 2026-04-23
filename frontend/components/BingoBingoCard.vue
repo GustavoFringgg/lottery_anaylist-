@@ -42,6 +42,7 @@ withDefaults(defineProps<Props>(), {
       :drawTime="draw_time"
       :drawTerm="draw_term"
       :nextDraw="`${next_draw_date}${next_draw_time}`"
+      :showTime="true"
       class="sm:max-w-[965px] sm:ms-[100px] mx-auto"
     />
 
