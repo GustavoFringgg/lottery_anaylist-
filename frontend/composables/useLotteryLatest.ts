@@ -73,7 +73,19 @@ const FEATURED_CODES = [5120, 5118, 5134]
 export const useLotteryLatest = () => {
   const { getLatest } = useLotteryApi()
 
-  const { data, error } = useAsyncData("lottery-latest", () => getLatest())
+  const { data, error, refresh } = useAsyncData("lottery-latest", () => getLatest())
+
+  onMounted(() => {
+    const now = new Date()
+    const target = new Date()
+    target.setHours(21, 35, 0, 0)
+    const delay = target.getTime() - now.getTime()
+
+    if (delay > 0) {
+      setTimeout(() => refresh(), delay)
+    }
+    // delay <= 0 → 已過 21:35，SSR 資料已是最新，不需要 setTimeout
+  })
 
   const games = computed<CardData[]>(() => {
     if (!data.value) return []
@@ -97,5 +109,5 @@ export const useLotteryLatest = () => {
   const featured = computed(() => games.value.filter((g) => FEATURED_CODES.includes(g.game_code)))
   const grid = computed(() => games.value.filter((g) => !FEATURED_CODES.includes(g.game_code)))
 
-  return { featured, grid, error }
+  return { featured, grid, error, refresh }
 }

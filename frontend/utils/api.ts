@@ -4,7 +4,7 @@ export const useLotteryApi = () => {
   const config = useRuntimeConfig()
 
   const headers = {
-    "X-API-Key": config.public.apiKey as string
+    "X-API-Key": config.apiKey as string
   }
 
   const baseUrl = config.public.apiBase
