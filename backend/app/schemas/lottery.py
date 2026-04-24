@@ -17,7 +17,7 @@ class BingoResponse(BaseModel):
     draw_date: datetime
     numbers: list[int]
     next_draw_date: datetime | None
-    special: str
+    special: int
     lot_big_small: str
     lot_odd_even: str
 

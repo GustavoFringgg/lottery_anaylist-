@@ -8,6 +8,7 @@ from datetime import datetime, date
 class Game(SQLModel, table=True):
     game_code: int = Field(primary_key=True)
     name: str
+    slug: str = Field(unique=True)
 
 
 class DrawsList(SQLModel, table=True):

@@ -101,7 +101,7 @@ export const useLotteryLatest = () => {
         draw_time: time,
         next_draw: nextDraw,
         numbers: item.numbers,
-        special_number: null
+        special_number: item.special
       }
     })
   })

@@ -23,14 +23,18 @@ async def get_latest(db: AsyncSession = Depends(get_session)):
     )
     draws = result.scalars().all()
 
+
+
     draw_list = []
     for draw in draws:
+        special = get_special(draw.game_code, draw.numbers)
+        numbers = draw.numbers[:-1] if special is not None else draw.numbers
         draw_list.append(DrawResponse(
             game_code=draw.game_code,
             term=draw.term,
             draw_date=draw.draw_date,
-            numbers=draw.numbers,
-            special=get_special(draw.game_code, draw.numbers),
+            numbers=numbers,
+            special=special,
             next_draw_date=draw.next_draw_date,
         ))
 

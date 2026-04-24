@@ -1,4 +1,4 @@
-import type { ApiResponseData } from "~/types/index"
+import type { ApiResponseData, BingoApiResponse } from "~/types/index"
 
 export const useLotteryApi = () => {
   const config = useRuntimeConfig()
@@ -11,7 +11,7 @@ export const useLotteryApi = () => {
 
   const getLatest = () => $fetch<{ draws: ApiResponseData[] }>(`${baseUrl}/api/lottery/latest`, { headers })
 
-  const getBingoLatest = () => $fetch(`${baseUrl}/api/lottery/bingo/latest`, { headers })
+  const getBingoLatest = () => $fetch<BingoApiResponse>(`${baseUrl}/api/lottery/bingo/latest`, { headers })
 
   return { getLatest, getBingoLatest }
 }

@@ -3,6 +3,7 @@ export interface ApiResponseData {
   term: string
   draw_date: string
   numbers: number[]
+  special: number | null
   next_draw_date: string | null
 }
 
@@ -20,4 +21,15 @@ export interface CardData {
   logo: string
   draw_days: number[]
   showSortButtons?: boolean
+}
+
+export interface BingoApiResponse {
+  game_code: number
+  term: string
+  draw_date: string
+  numbers: number[]
+  special: number | null
+  lot_big_small: string
+  lot_odd_even: string
+  next_draw_date: string | null
 }
