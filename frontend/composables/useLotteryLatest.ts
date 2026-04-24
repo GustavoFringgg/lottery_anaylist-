@@ -1,4 +1,5 @@
 import type { CardData } from "~/types/index"
+import { formatDate } from "~/utils/formatDate"
 
 const GAME_META: Record<
   number,
@@ -55,21 +56,6 @@ const GAME_META: Record<
   }
 }
 
-const WEEKDAYS = ['一', '二', '三', '四', '五', '六', '日']
-
-const formatDate = (iso: string) => {
-  const d = new Date(iso)
-  const roc = d.getFullYear() - 1911
-  const mm = String(d.getMonth() + 1).padStart(2, "0")
-  const dd = String(d.getDate()).padStart(2, "0")
-  const hh = String(d.getHours()).padStart(2, "0")
-  const min = String(d.getMinutes()).padStart(2, "0")
-  const weekday = WEEKDAYS[d.getDay() === 0 ? 6 : d.getDay() - 1]
-  return {
-    date: `${roc}/${mm}/${dd}(${weekday})`,
-    time: `${hh}:${min}`
-  }
-}
 
 const FEATURED_CODES = [5120, 5118, 5134]
 
@@ -85,7 +71,10 @@ export const useLotteryLatest = () => {
     const delay = target.getTime() - now.getTime()
 
     if (delay > 0) {
-      setTimeout(() => refresh(), delay)
+      setTimeout(() => {
+        console.log('[Lottery] 21:35 觸發自動更新', new Date().toLocaleTimeString())
+        refresh()
+      }, delay)
     }
     // delay <= 0 → 已過 21:35，SSR 資料已是最新，不需要 setTimeout
   })

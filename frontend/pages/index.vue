@@ -31,6 +31,7 @@ const seconds = ref(0)
 const todayWeekday = new Date().getDay() //0~6
 const isDrawTody = (game: CardData) => game.draw_days?.includes(todayWeekday) ?? false
 const { featured: gamesFeatured, grid: gamesGrid } = useLotteryLatest()
+const { bingoCard } = useBingoLatest()
 
 useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
 </script>
@@ -59,16 +60,17 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
       <DrawDateButton class="mt-[5px] sm:mt-[10px]" v-if="isDrawTody(game)">今日開獎</DrawDateButton>
     </LotteryGameCard>
     <BingoBingoCard
-      draw_term="115018164"
-      draw_date="115/03/31(二)"
-      draw_time="15:00"
-      next_draw_date="115/03/31(二)"
-      next_draw_time="15:10"
-      :numbers="[13, 27, 28, 41, 26, 16, 22, 31, 2, 36, 27, 10, 9, 6, 24, 12, 37, 25, 22]"
-      :special_number="1"
-      :super_prize="1"
-      guess_big_small="-"
-      guess_odd_even="單"
+      v-if="bingoCard"
+      :draw_term="bingoCard.draw_term"
+      :draw_date="bingoCard.draw_date"
+      :draw_time="bingoCard.draw_time"
+      :next_draw_date="bingoCard.next_draw_date"
+      :next_draw_time="bingoCard.next_draw_time"
+      :numbers="bingoCard.numbers"
+      :special_number="bingoCard.special_number"
+      :super_prize="bingoCard.special_number"
+      :guess_big_small="bingoCard.guess_big_small"
+      :guess_odd_even="bingoCard.guess_odd_even"
     >
       <DrawDateButton class="mt-[5px] sm:mt-[10px]">每五分鐘開獎</DrawDateButton>
     </BingoBingoCard>

@@ -2,6 +2,7 @@ import httpx
 from datetime import datetime
 from app.core.config import settings
 
+
 HEADERS = {
     "User-Agent": settings.HEADER_USER_AGENT,
     "Accept": settings.HEADER_ACCEPT,
