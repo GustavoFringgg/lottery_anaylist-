@@ -56,7 +56,6 @@ const GAME_META: Record<
   }
 }
 
-
 const FEATURED_CODES = [5120, 5118, 5134]
 
 export const useLotteryLatest = () => {
@@ -72,7 +71,7 @@ export const useLotteryLatest = () => {
 
     if (delay > 0) {
       setTimeout(() => {
-        console.log('[Lottery] 21:35 觸發自動更新', new Date().toLocaleTimeString())
+        console.log("[Lottery] 21:35 觸發自動更新", new Date().toLocaleTimeString())
         refresh()
       }, delay)
     }
