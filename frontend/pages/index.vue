@@ -8,26 +8,25 @@ const minutes = ref(0)
 const seconds = ref(0)
 
 //
-const updateCountdown = () => {
-  const now = new Date()
-  const target = new Date()
-  target.setHours(21, 30, 0, 0)
-  if (target <= now) target.setDate(target.getDate() + 1)
-  const diff = target.getTime() - now.getTime()
-  days.value = Math.floor(diff / 86400000)
-  hours.value = Math.floor((diff % 86400000) / 3600000)
-  minutes.value = Math.floor((diff % 3600000) / 60000)
-  seconds.value = Math.floor((diff % 60000) / 1000)
-}
-//
-onMounted(() => {
-  updateCountdown()
-  const timer = setInterval(updateCountdown, 1000)
+// const updateCountdown = () => {
+//   const now = new Date()
+//   const target = new Date()
+//   target.setHours(21, 30, 0, 0)
+//   if (target <= now) target.setDate(target.getDate() + 1)
+//   const diff = target.getTime() - now.getTime()
+//   days.value = Math.floor(diff / 86400000)
+//   hours.value = Math.floor((diff % 86400000) / 3600000)
+//   minutes.value = Math.floor((diff % 3600000) / 60000)
+//   seconds.value = Math.floor((diff % 60000) / 1000)
+// }
+// onMounted(() => {
+//   updateCountdown()
+//   const timer = setInterval(updateCountdown, 1000)
 
-  onUnmounted(() => clearInterval(timer))
-})
+//   onUnmounted(() => clearInterval(timer))
+// })
 
-const pad = (n: number) => String(n).padStart(2, "0")
+// const pad = (n: number) => String(n).padStart(2, "0")
 
 const todayWeekday = new Date().getDay() //0~6
 const isDrawTody = (game: CardData) => game.draw_days?.includes(todayWeekday) ?? false
@@ -38,7 +37,7 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
 
 <template>
   <div class="space-y-3 flex flex-col w-full max-w-[1200px] mx-auto px-2 sm:px-4">
-    <div
+    <!-- <div
       class="w-full flex flex-col sm:flex-row items-center sm:justify-center px-6 py-4 sm:py-0 gap-x-10 mb-[26px]"
       style="
         min-height: 151px;
@@ -55,7 +54,7 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
       >
         開獎直播倒數：{{ days }} 天 {{ pad(hours) }} 時 {{ pad(minutes) }} 分 {{ pad(seconds) }} 秒
       </div>
-    </div>
+    </div> -->
     <LotteryGameCard v-for="game in gamesFeatured" :key="game.name + game.draw_term" :game="game" :full-width="true">
       <DrawDateButton class="mt-[5px] sm:mt-[10px]" v-if="isDrawTody(game)">今日開獎</DrawDateButton>
     </LotteryGameCard>

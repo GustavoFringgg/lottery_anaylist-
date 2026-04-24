@@ -1,14 +1,17 @@
 <template>
   <div class="min-h-screen bg-cream">
     <!-- Header -->
-    <header class="py-2.5 relative flex items-center justify-center" style="background-color: #59adbc">
-      <img
+    <header
+      class="py-2.5 relative flex items-center justify-center sm:h-[104px] h-[59px]"
+      style="background-color: #59adbc"
+    >
+      <!-- <img
         src="../public/images/logos/539lotto_header.png"
         alt="今彩539"
         width="246"
         height="104"
         class="object-contain"
-      />
+      /> -->
 
       <!-- 手機版漢堡選單 -->
       <button

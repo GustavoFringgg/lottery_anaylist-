@@ -55,6 +55,8 @@ const GAME_META: Record<
   }
 }
 
+const WEEKDAYS = ['一', '二', '三', '四', '五', '六', '日']
+
 const formatDate = (iso: string) => {
   const d = new Date(iso)
   const roc = d.getFullYear() - 1911
@@ -62,8 +64,9 @@ const formatDate = (iso: string) => {
   const dd = String(d.getDate()).padStart(2, "0")
   const hh = String(d.getHours()).padStart(2, "0")
   const min = String(d.getMinutes()).padStart(2, "0")
+  const weekday = WEEKDAYS[d.getDay() === 0 ? 6 : d.getDay() - 1]
   return {
-    date: `${roc}/${mm}/${dd}`,
+    date: `${roc}/${mm}/${dd}(${weekday})`,
     time: `${hh}:${min}`
   }
 }
@@ -89,7 +92,7 @@ export const useLotteryLatest = () => {
 
   const games = computed<CardData[]>(() => {
     if (!data.value) return []
-    return data.value.draws.map((item) => {
+    return data.value.map((item) => {
       const meta = GAME_META[item.game_code]
       const { date, time } = formatDate(item.draw_date)
       const nextDraw = item.next_draw_date ? formatDate(item.next_draw_date).date : "-"
@@ -106,7 +109,9 @@ export const useLotteryLatest = () => {
     })
   })
 
-  const featured = computed(() => games.value.filter((g) => FEATURED_CODES.includes(g.game_code)))
+  const featured = computed(
+    () => FEATURED_CODES.map((code) => games.value.find((g) => g.game_code === code)).filter(Boolean) as CardData[]
+  )
   const grid = computed(() => games.value.filter((g) => !FEATURED_CODES.includes(g.game_code)))
 
   return { featured, grid, error, refresh }
