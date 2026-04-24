@@ -52,9 +52,10 @@ app.include_router(health.router,prefix='/api/health', tags=['health'])
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
+    is_dev = os.environ.get("APP_ENV", "development") == "development"
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
         port=port,
-        reload=False,
+        reload=is_dev,
     )

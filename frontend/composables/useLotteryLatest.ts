@@ -1,4 +1,5 @@
 import type { CardData } from "~/types/index"
+import { formatDate } from "~/utils/formatDate"
 
 const GAME_META: Record<
   number,
@@ -55,18 +56,6 @@ const GAME_META: Record<
   }
 }
 
-const formatDate = (iso: string) => {
-  const d = new Date(iso)
-  const roc = d.getFullYear() - 1911
-  const mm = String(d.getMonth() + 1).padStart(2, "0")
-  const dd = String(d.getDate()).padStart(2, "0")
-  const hh = String(d.getHours()).padStart(2, "0")
-  const min = String(d.getMinutes()).padStart(2, "0")
-  return {
-    date: `${roc}/${mm}/${dd}`,
-    time: `${hh}:${min}`
-  }
-}
 
 const FEATURED_CODES = [5120, 5118, 5134]
 
@@ -82,14 +71,17 @@ export const useLotteryLatest = () => {
     const delay = target.getTime() - now.getTime()
 
     if (delay > 0) {
-      setTimeout(() => refresh(), delay)
+      setTimeout(() => {
+        console.log('[Lottery] 21:35 觸發自動更新', new Date().toLocaleTimeString())
+        refresh()
+      }, delay)
     }
     // delay <= 0 → 已過 21:35，SSR 資料已是最新，不需要 setTimeout
   })
 
   const games = computed<CardData[]>(() => {
     if (!data.value) return []
-    return data.value.draws.map((item) => {
+    return data.value.map((item) => {
       const meta = GAME_META[item.game_code]
       const { date, time } = formatDate(item.draw_date)
       const nextDraw = item.next_draw_date ? formatDate(item.next_draw_date).date : "-"
@@ -101,12 +93,14 @@ export const useLotteryLatest = () => {
         draw_time: time,
         next_draw: nextDraw,
         numbers: item.numbers,
-        special_number: null
+        special_number: item.special
       }
     })
   })
 
-  const featured = computed(() => games.value.filter((g) => FEATURED_CODES.includes(g.game_code)))
+  const featured = computed(
+    () => FEATURED_CODES.map((code) => games.value.find((g) => g.game_code === code)).filter(Boolean) as CardData[]
+  )
   const grid = computed(() => games.value.filter((g) => !FEATURED_CODES.includes(g.game_code)))
 
   return { featured, grid, error, refresh }

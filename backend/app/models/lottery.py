@@ -8,6 +8,7 @@ from datetime import datetime, date
 class Game(SQLModel, table=True):
     game_code: int = Field(primary_key=True)
     name: str
+    slug: str = Field(unique=True)
 
 
 class DrawsList(SQLModel, table=True):
@@ -16,7 +17,7 @@ class DrawsList(SQLModel, table=True):
     term: str
     draw_date: Optional[datetime]
     next_draw_date: Optional[datetime] = None
-    numbers: List[int] = Field(sa_column=Column(ARRAY(INTEGER)))
+    numbers: List[int] = Field(sa_column = Column(ARRAY(INTEGER)))
     source: str = Field(default="api")
     is_verified: bool = Field(default=False)
     verified_at: Optional[datetime] = None

@@ -11,9 +11,10 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    apiKey: process.env.NUXT_API_KEY || "",  // server only
+    apiKey: process.env.NUXT_API_KEY || "",  // server only (prod SSR)
     public: {
-      apiBase: process.env.API_BASE_URL || "https://lottery-anaylist.onrender.com"
+      apiBase: process.env.API_BASE_URL || "https://lottery-anaylist.onrender.com",
+      ...(process.env.NODE_ENV === 'development' && { apiKey: process.env.NUXT_PUBLIC_API_KEY || "" })
     }
   },
   /*   環境變數管理，這是 Nuxt 特有的。
@@ -35,5 +36,5 @@ export default defineNuxtConfig({
     }
   },
 
-  ssr: true //開啟ssr模式
+  ssr: process.env.NODE_ENV !== 'development'
 })
