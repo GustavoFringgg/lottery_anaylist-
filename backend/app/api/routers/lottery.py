@@ -7,6 +7,11 @@ from app.schemas.lottery import DrawResponse, LatestDrawsResponse,BingoResponse
 from app.core.security import verify_api_key
 router = APIRouter()
 
+GAMES_WITH_SPECIAL = {5118, 5134}
+def get_special(game_code:int,numbers:list[int])-> int | None:
+    if game_code in GAMES_WITH_SPECIAL:
+        return numbers[-1]
+    return None
 
 @router.get("/latest", response_model=LatestDrawsResponse,dependencies=[Depends(verify_api_key)])
 async def get_latest(db: AsyncSession = Depends(get_session)):
@@ -25,6 +30,7 @@ async def get_latest(db: AsyncSession = Depends(get_session)):
             term=draw.term,
             draw_date=draw.draw_date,
             numbers=draw.numbers,
+            special=get_special(draw.game_code, draw.numbers),
             next_draw_date=draw.next_draw_date,
         ))
 
@@ -49,7 +55,7 @@ async def get_latest_bingo(db:AsyncSession = Depends(get_session)):
         draw_date=draw.draw_date,
         numbers=draw.numbers,
         next_draw_date=draw.next_draw_date,
-        lot_special=extra.lot_special,
+        special=int(extra.lot_special),
         lot_big_small=extra.lot_big_small,
         lot_odd_even=extra.lot_odd_even,
     )

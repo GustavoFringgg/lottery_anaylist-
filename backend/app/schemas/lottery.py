@@ -7,6 +7,7 @@ class DrawResponse(BaseModel):
     term: str
     draw_date: datetime
     numbers: list[int]
+    special: int | None
     next_draw_date: datetime | None
 
 
@@ -16,7 +17,7 @@ class BingoResponse(BaseModel):
     draw_date: datetime
     numbers: list[int]
     next_draw_date: datetime | None
-    lot_special: str
+    special: str
     lot_big_small: str
     lot_odd_even: str
 
