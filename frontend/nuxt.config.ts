@@ -32,7 +32,21 @@ export default defineNuxtConfig({
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { name: "description", content: "全台最快即時台彩開獎資訊、歷史數據分析、號碼統計" }
       ],
-      link: [{ rel: "icon", type: "image/png", href: "/images/logos/favicon.png" }]
+      link: [{ rel: "icon", type: "image/png", href: "/images/logos/favicon.png" }],
+      script: [
+        {
+          src: "https://www.googletagmanager.com/gtag/js?id=G-Z5TWHGFH4L",
+          async: true,
+        },
+        {
+          innerHTML: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Z5TWHGFH4L');
+          `,
+        },
+      ],
     }
   },
 
