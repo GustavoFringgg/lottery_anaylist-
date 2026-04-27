@@ -35,7 +35,7 @@ scheduler.add_job(
       hour="7-23",
       minute="*/5", 
   )
-scheduler.add_job(run_games_job, "cron", day_of_week="mon-sat",hour = 21, minute = 30)
+scheduler.add_job(run_games_job, "cron", day_of_week="mon-sat", hour=22, minute=30)
 
 if __name__ == "__main__":
     async def main():
