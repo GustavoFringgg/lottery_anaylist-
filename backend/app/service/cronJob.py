@@ -8,10 +8,13 @@ logger = logging.getLogger(__name__)
 
 async def run_games_job():
     logger.info("開始抓取最新樂透資料")
-    draws = await fetch_all_withoutBingo()
-    async with AsyncSessionLocal() as session:
-        await save_draws(session, draws)
-    logger.info(f"完成，最新日期：{draws[0]['draw_date']}")
+    try:
+        draws = await fetch_all_withoutBingo()
+        async with AsyncSessionLocal() as session:
+            await save_draws(session, draws)
+        logger.info(f"完成，最新日期：{draws[0]['draw_date']}")
+    except Exception as e:
+        logger.error(f"樂透資料抓取失敗：{e}")
 
 async def run_bingo_job():
     logger.info("開始抓取最新BingoBingo資料")
