@@ -1,7 +1,9 @@
 import httpx
+import asyncio
+import logging
 from datetime import datetime
 from app.core.config import settings
-
+from tenacity import AsyncRetrying, stop_after_attempt, wait_fixed, retry_if_exception_type, before_sleep_log
 
 HEADERS = {
     "User-Agent": settings.HEADER_USER_AGENT,
@@ -13,44 +15,63 @@ HEADERS = {
 GAME_NAMES = {
     1102: "BingoBingo",
     1121: "49樂合彩",
-    1197: "39樂合彩",  
+    1197: "39樂合彩",
     2108: "3星彩",
     2109: "4星彩",
     5118: "大樂透",
-    5120: "今彩539", 
+    5120: "今彩539",
     5134: "威力彩",
 }
 
-# TODO: 可以補上 timeout的catch
-def fetch_last_number() -> dict:
-    res = httpx.get(settings.LAST_NUMBER_URL, headers=HEADERS, timeout=10)
-    res.raise_for_status()
-    data = res.json()
-    if data["rtCode"] != 0:
-        raise Exception(f"API 錯誤: {data['rtMsg']}")
-    return data["content"]
+logger = logging.getLogger(__name__)
 
 
-def fetch_next_draw_date() -> dict:
-    res = httpx.get(settings.NEXT_DRAW_URL, headers=HEADERS, timeout=10)
-    res.raise_for_status()
-    data = res.json()
-    if data["rtCode"] != 0:
-        raise Exception(f"API 錯誤: {data['rtMsg']}") 
-    result = {}
-    for item in data["content"]["nextDrawDateList"]:
-        raw = item["drawDate"]
-        if len(raw) == 12:  
-            result[item["gameCode"]] = datetime.strptime(raw, "%Y%m%d%H%M")
-        else: 
-            result[item["gameCode"]] = datetime.strptime(raw, "%Y%m%d")
-    return result
+async def fetch_last_number() -> dict:
+    async for attempt in AsyncRetrying(
+        retry=retry_if_exception_type(httpx.TimeoutException),
+        stop=stop_after_attempt(3),
+        wait=wait_fixed(10),
+        before_sleep=before_sleep_log(logger, logging.WARNING),
+    ):
+        with attempt:
+            async with httpx.AsyncClient() as client:
+                res = await client.get(settings.LAST_NUMBER_URL, headers=HEADERS, timeout=15)
+                res.raise_for_status()
+                data = res.json()
+                if data["rtCode"] != 0:
+                    raise Exception(f"fetch_last_number API 錯誤: {data['rtMsg']}")
+                return data["content"]
 
 
-def fetch_all_withoutBingo() -> list[dict]:
-    content = fetch_last_number()
-    next_draw_map = fetch_next_draw_date()
+async def fetch_next_draw_date() -> dict:
+    async for attempt in AsyncRetrying(
+        retry=retry_if_exception_type(httpx.TimeoutException),
+        stop=stop_after_attempt(3),
+        wait=wait_fixed(10),
+        before_sleep=before_sleep_log(logger, logging.WARNING),
+    ):
+        with attempt:
+            async with httpx.AsyncClient() as client:
+                res = await client.get(settings.NEXT_DRAW_URL, headers=HEADERS, timeout=15)
+                res.raise_for_status()
+                data = res.json()
+                if data["rtCode"] != 0:
+                    raise Exception(f"fetch_next_draw_date API 錯誤: {data['rtMsg']}")
+                result = {}
+                for item in data["content"]["nextDrawDateList"]:
+                    raw = item["drawDate"]
+                    if len(raw) == 12:
+                        result[item["gameCode"]] = datetime.strptime(raw, "%Y%m%d%H%M")
+                    else:
+                        result[item["gameCode"]] = datetime.strptime(raw, "%Y%m%d")
+                return result
 
+
+async def fetch_all_withoutBingo() -> list[dict]:
+    content, next_draw_map = await asyncio.gather(
+        fetch_last_number(),
+        fetch_next_draw_date(),
+    )
     results = []
     for item in content["lastNumberList"]:
         game_code = item["gameCode"]
@@ -65,10 +86,11 @@ def fetch_all_withoutBingo() -> list[dict]:
     return results
 
 
-def fetch_bingo() -> list[dict]:
-    content = fetch_last_number()
-    next_draw_map = fetch_next_draw_date()
-
+async def fetch_bingo() -> list[dict]:
+    content, next_draw_map = await asyncio.gather(
+        fetch_last_number(),
+        fetch_next_draw_date(),
+    )
     results = []
     bingo = content["bingo"]
     game_code = bingo["gameCode"]
@@ -85,7 +107,10 @@ def fetch_bingo() -> list[dict]:
     })
     return results
 
+
 if __name__ == "__main__":
-    for draw in fetch_all_withoutBingo():
-        print(draw)
-    print(fetch_bingo())
+    async def main():
+        for draw in await fetch_all_withoutBingo():
+            print(draw)
+        print(await fetch_bingo())
+    asyncio.run(main())
