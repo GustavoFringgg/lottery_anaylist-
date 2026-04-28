@@ -1,6 +1,15 @@
 <script setup lang="ts">
 const menuOpen = ref(false)
-const menuItems = ["今彩539", "大樂透", "威力彩", "BINGO BINGO", "49樂合彩", "39樂合彩", "3星彩", "4星彩"]
+const menuItems = [
+  { label: "今彩539", logo: "/images/ham_logo/539.png" },
+  { label: "大樂透", logo: "/images/ham_logo/big-lotto.png" },
+  { label: "威力彩", logo: "/images/ham_logo/power-lotto.png" },
+  { label: "BINGO BINGO", logo: "/images/ham_logo/bingo.png" },
+  { label: "49樂合彩", logo: "/images/ham_logo/49lotto.png" },
+  { label: "39樂合彩", logo: "/images/ham_logo/39lotto.png" },
+  { label: "3星彩", logo: "/images/ham_logo/3star.png" },
+  { label: "4星彩", logo: "/images/ham_logo/4star.png" },
+]
 
 const navRef = ref<HTMLElement | null>(null)
 
@@ -56,21 +65,27 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
         <ul>
           <li
             v-for="item in menuItems"
-            :key="item"
+            :key="item.label"
             class="border-b last:border-b-0"
             style="border-color: rgba(255, 255, 255, 0.2)"
           >
             <button
-              class="w-full text-center py-[17px] text-2xl font-bold menu-item"
+              class="w-full flex items-center justify-center py-[17px] text-2xl font-bold menu-item px-6"
               style="color: #ffe868"
               @click="menuOpen = false"
             >
-              {{ item }}
+              <div class="w-12 sm:w-14 flex justify-center shrink-0">
+                <img :src="item.logo" :alt="item.label" class="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
+              </div>
+              <div class="w-40 sm:w-48 text-center">{{ item.label }}</div>
             </button>
           </li>
         </ul>
       </nav>
     </Transition>
+
+    <!-- Ad Carousel -->
+    <AdCarousel />
 
     <!-- Main content -->
     <main class="mx-auto max-w-[1540px] px-2 py-3 sm:px-4">
@@ -78,9 +93,9 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
     </main>
 
     <!-- Ad Banner -->
-    <div class="flex justify-center mb-4">
+    <!-- <div class="flex justify-center mb-4">
       <img src="/images/logos/adExample.png" alt="廣告" class="w-full max-w-[1170px] h-auto" />
-    </div>
+    </div> -->
 
     <footer class="py-4 text-center text-xs text-white" style="background-color: #59adbc"></footer>
   </div>

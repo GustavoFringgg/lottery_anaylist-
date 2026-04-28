@@ -109,13 +109,15 @@ async def get_latest_bingo(db:AsyncSession = Depends(get_session)):
     if row is None:
         raise HTTPException(status_code=404, detail="尚無 BingoBingo 開獎資料")
     draw, extra = row
+    special_num = int(extra.lot_special)
+    numbers_without_special = [n for n in draw.numbers if n!= special_num]
     return BingoResponse(
         game_code=draw.game_code,
         term=draw.term,
         draw_date=draw.draw_date,
-        numbers=draw.numbers,
+        numbers=numbers_without_special,
         next_draw_date=draw.next_draw_date,
-        special=int(extra.lot_special),
+        special=special_num,
         lot_big_small=extra.lot_big_small,
         lot_odd_even=extra.lot_odd_even,
     )
