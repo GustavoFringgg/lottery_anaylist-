@@ -8,7 +8,7 @@ const menuItems = [
   { label: "49樂合彩", logo: "/images/ham_logo/49lotto.png" },
   { label: "39樂合彩", logo: "/images/ham_logo/39lotto.png" },
   { label: "3星彩", logo: "/images/ham_logo/3star.png" },
-  { label: "4星彩", logo: "/images/ham_logo/4star.png" },
+  { label: "4星彩", logo: "/images/ham_logo/4star.png" }
 ]
 
 const navRef = ref<HTMLElement | null>(null)
@@ -74,8 +74,8 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
               style="color: #ffe868"
               @click="menuOpen = false"
             >
-              <div class="w-12 sm:w-14 flex justify-center shrink-0">
-                <img :src="item.logo" :alt="item.label" class="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
+              <div class="w-14 sm:w-20 flex justify-center shrink-0">
+                <img :src="item.logo" :alt="item.label" class="object-contain" />
               </div>
               <div class="w-40 sm:w-48 text-center">{{ item.label }}</div>
             </button>
