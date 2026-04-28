@@ -75,9 +75,9 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
               @click="menuOpen = false"
             >
               <div class="flex justify-center shrink-0">
-                <img :src="item.logo" :alt="item.label" class="sm:w-[130px] w-[110px] object-contain" />
+                <img :src="item.logo" :alt="item.label" class="sm:w-[130px] w-[90px] object-contain" />
               </div>
-              <div class="w-[200px] sm:w-[200px] text-center">{{ item.label }}</div>
+              <div class="w-[180px] sm:w-[180px] text-center">{{ item.label }}</div>
             </button>
           </li>
         </ul>
