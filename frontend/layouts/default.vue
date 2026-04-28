@@ -1,14 +1,15 @@
 <script setup lang="ts">
 const menuOpen = ref(false)
+const NuxtLinkComponent = resolveComponent("NuxtLink")
 const menuItems = [
-  { label: "今彩539", logo: "/images/ham_logo/539.png" },
-  { label: "大樂透", logo: "/images/ham_logo/big-lotto.png" },
-  { label: "威力彩", logo: "/images/ham_logo/power-lotto.png" },
-  { label: "BINGO BINGO", logo: "/images/ham_logo/bingo.png" },
-  { label: "49樂合彩", logo: "/images/ham_logo/49lotto.png" },
-  { label: "39樂合彩", logo: "/images/ham_logo/39lotto.png" },
-  { label: "3星彩", logo: "/images/ham_logo/3star.png" },
-  { label: "4星彩", logo: "/images/ham_logo/4star.png" }
+  { label: "今彩539", logo: "/images/ham_logo/539.png", to: "/lotto-539" },
+  { label: "大樂透", logo: "/images/ham_logo/big-lotto.png", to: "" },
+  { label: "威力彩", logo: "/images/ham_logo/power-lotto.png", to: "" },
+  { label: "BINGO BINGO", logo: "/images/ham_logo/bingo.png", to: "" },
+  { label: "49樂合彩", logo: "/images/ham_logo/49lotto.png", to: "" },
+  { label: "39樂合彩", logo: "/images/ham_logo/39lotto.png", to: "" },
+  { label: "3星彩", logo: "/images/ham_logo/3star.png", to: "" },
+  { label: "4星彩", logo: "/images/ham_logo/4star.png", to: "" }
 ]
 
 const navRef = ref<HTMLElement | null>(null)
@@ -69,7 +70,9 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
             class="border-b last:border-b-0"
             style="border-color: rgba(255, 255, 255, 0.2)"
           >
-            <button
+            <component
+              :is="item.to ? NuxtLinkComponent : 'button'"
+              :to="item.to || undefined"
               class="w-full flex items-center justify-center py-[15px] text-2xl font-bold menu-item px-6"
               style="color: #ffe868"
               @click="menuOpen = false"
@@ -78,14 +81,11 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
                 <img :src="item.logo" :alt="item.label" class="sm:w-[130px] w-[90px] object-contain" />
               </div>
               <div class="w-[180px] sm:w-[180px] text-center">{{ item.label }}</div>
-            </button>
+            </component>
           </li>
         </ul>
       </nav>
     </Transition>
-
-    <!-- Ad Carousel -->
-    <AdCarousel />
 
     <!-- Main content -->
     <main class="mx-auto max-w-[1540px] px-2 py-3 sm:px-4">
