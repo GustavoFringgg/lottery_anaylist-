@@ -70,14 +70,14 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
             style="border-color: rgba(255, 255, 255, 0.2)"
           >
             <button
-              class="w-full flex items-center justify-center py-[17px] text-2xl font-bold menu-item px-6"
+              class="w-full flex items-center justify-center py-[15px] text-2xl font-bold menu-item px-6"
               style="color: #ffe868"
               @click="menuOpen = false"
             >
-              <div class="w-14 sm:w-20 flex justify-center shrink-0">
-                <img :src="item.logo" :alt="item.label" class="object-contain" />
+              <div class="flex justify-center shrink-0">
+                <img :src="item.logo" :alt="item.label" class="sm:w-[130px] w-[110px] object-contain" />
               </div>
-              <div class="w-40 sm:w-48 text-center">{{ item.label }}</div>
+              <div class="w-[200px] sm:w-[200px] text-center">{{ item.label }}</div>
             </button>
           </li>
         </ul>
