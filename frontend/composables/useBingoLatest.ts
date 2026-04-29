@@ -10,7 +10,7 @@ export const useBingoLatest = () => {
 
   onMounted(() => {
     const INTERVAL = 5 * 60 * 1000
-    const OFFSET = 30 * 1000 // 整點5分後30秒才打
+    const OFFSET = (2 * 60 + 10) * 1000 // 基準分鐘2/7/12...後10秒才打
     const now = new Date()
     const msUntilNextMark = INTERVAL - ((now.getTime() - OFFSET) % INTERVAL)
 
