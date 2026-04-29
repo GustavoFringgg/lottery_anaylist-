@@ -23,6 +23,20 @@ export interface CardData {
   showSortButtons?: boolean
 }
 
+export interface DrawItem {
+  game_code: number
+  term: string
+  draw_date: string
+  numbers: number[]
+  special: number | null
+}
+
+export interface DrawsResponse {
+  slug: string
+  name: string
+  draw_list: DrawItem[]
+}
+
 export interface BingoApiResponse {
   game_code: number
   term: string

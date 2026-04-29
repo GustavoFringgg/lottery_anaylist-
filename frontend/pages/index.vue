@@ -37,6 +37,9 @@ useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
 </script>
 
 <template>
+  <div class="flex flex-col w-full max-w-[1200px] mx-auto">
+    <AdCarousel />
+  </div>
   <div class="space-y-3 flex flex-col w-full max-w-[1200px] mx-auto px-2 sm:px-4">
     <!-- <div
       class="w-full flex flex-col sm:flex-row items-center sm:justify-center px-6 py-4 sm:py-0 gap-x-10 mb-[26px]"
