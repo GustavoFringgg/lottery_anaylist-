@@ -65,7 +65,7 @@ scheduler.add_job(
       "cron",
       day_of_week="mon-sun",
       hour="7-23",
-      minute="*/5", 
+      minute="2/5", 
   )
 scheduler.add_job(run_games_job, "cron", day_of_week="mon-sat", hour=21, minute=30)
 
