@@ -5,20 +5,28 @@ export const useBingoLatest = () => {
 
   const { data, error, refresh } = useAsyncData("bingo-latest", () => getBingoLatest())
 
-  let timer: ReturnType<typeof setInterval> | null = null
+  let intervalTimer: ReturnType<typeof setInterval> | null = null
+  let initialTimer: ReturnType<typeof setTimeout> | null = null
 
   onMounted(() => {
-    timer = setInterval(
-      () => {
-        console.log("[Bingo] 5分鐘自動更新", new Date().toLocaleTimeString())
+    const INTERVAL = 5 * 60 * 1000
+    const OFFSET = 30 * 1000 // 整點5分後30秒才打
+    const now = new Date()
+    const msUntilNextMark = INTERVAL - ((now.getTime() - OFFSET) % INTERVAL)
+
+    initialTimer = setTimeout(() => {
+      console.log("[Bingo] 整點5分自動更新", new Date().toLocaleTimeString())
+      refresh()
+      intervalTimer = setInterval(() => {
+        console.log("[Bingo] 整點5分自動更新", new Date().toLocaleTimeString())
         refresh()
-      },
-      5 * 60 * 1000
-    )
+      }, INTERVAL)
+    }, msUntilNextMark)
   })
 
   onUnmounted(() => {
-    if (timer) clearInterval(timer)
+    if (initialTimer) clearTimeout(initialTimer)
+    if (intervalTimer) clearInterval(intervalTimer)
   })
 
   const bingoCard = computed(() => {
