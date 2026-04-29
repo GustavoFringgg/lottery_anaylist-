@@ -2,8 +2,8 @@
 const menuOpen = ref(false)
 const NuxtLinkComponent = resolveComponent("NuxtLink")
 const menuItems = [
-  { label: "今彩539", logo: "/images/ham_logo/539.png", to: "/lotto-539" },
-  { label: "大樂透", logo: "/images/ham_logo/big-lotto.png", to: "" },
+  { label: "今彩539", logo: "/images/ham_logo/539.png", to: "/lotto/539/history" },
+  { label: "大樂透", logo: "/images/ham_logo/big-lotto.png", to: "/lotto/big-lotto/history" },
   { label: "威力彩", logo: "/images/ham_logo/power-lotto.png", to: "" },
   { label: "BINGO BINGO", logo: "/images/ham_logo/bingo.png", to: "" },
   { label: "49樂合彩", logo: "/images/ham_logo/49lotto.png", to: "" },
