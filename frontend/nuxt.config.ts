@@ -30,10 +30,26 @@ export default defineNuxtConfig({
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { name: "description", content: "全台最快即時台彩開獎資訊、歷史數據分析、號碼統計" },
-        { name: "google-site-verification", content: "6ITddVFWHs0TBPCXs_lf8yG-U0C7AEqyz1jrbZ_3_Ko" }
+        { name: "description", content: "提供今彩539、大樂透、威力彩、39樂合彩、49樂合彩、3星彩、4星彩、BingoBingo 即時開獎號碼，歷史數據分析與號碼統計，幫助彩迷快速掌握開獎資訊。" },
+        { name: "keywords", content: "大樂透,威力彩,今彩539,台彩,全民i彩券,BingoBingo,39樂合彩,49樂合彩,3星彩,4星彩,開獎號碼,號碼統計,歷史開獎,數據分析" },
+        { name: "robots", content: "follow, index, max-snippet:-1, max-image-preview:large" },
+        { name: "google-site-verification", content: "6ITddVFWHs0TBPCXs_lf8yG-U0C7AEqyz1jrbZ_3_Ko" },
+        { property: "og:locale", content: "zh_TW" },
+        { property: "og:type", content: "website" },
+        { property: "og:site_name", content: "台彩分析" },
+        { property: "og:title", content: "台彩分析 - 即時開獎資訊" },
+        { property: "og:description", content: "提供今彩539、大樂透、威力彩、39樂合彩、49樂合彩、3星彩、4星彩、BingoBingo 即時開獎號碼，歷史數據分析與號碼統計。" },
+        { property: "og:url", content: "https://www.539lto.co/" },
+        { property: "og:image", content: "https://www.539lto.co/images/logos/favicon.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: "台彩分析 - 即時開獎資訊" },
+        { name: "twitter:description", content: "提供今彩539、大樂透、威力彩、39樂合彩、49樂合彩、3星彩、4星彩、BingoBingo 即時開獎號碼，歷史數據分析與號碼統計。" },
+        { name: "twitter:image", content: "https://www.539lto.co/images/logos/favicon.png" },
       ],
-      link: [{ rel: "icon", type: "image/png", href: "/images/logos/favicon.png" }],
+      link: [
+        { rel: "icon", type: "image/png", href: "/images/logos/favicon.png" },
+        { rel: "canonical", href: "https://www.539lto.co/" },
+      ],
       script: [
         {
           src: "https://www.googletagmanager.com/gtag/js?id=G-Z5TWHGFH4L",
