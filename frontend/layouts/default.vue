@@ -31,11 +31,13 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
       class="py-2.5 relative flex items-center justify-center sm:h-[104px] h-[59px]"
       style="background-color: #59adbc"
     >
-      <img
-        src="../public/images/logos/539lotto_header.png"
-        alt="今彩539"
-        class="h-[44px] sm:h-[90px] w-auto object-contain"
-      />
+      <NuxtLink to="/">
+        <img
+          src="../public/images/logos/539lotto_header.png"
+          alt="今彩539"
+          class="h-[44px] sm:h-[90px] w-auto object-contain"
+        />
+      </NuxtLink>
       <!-- 漢堡選單按鈕 -->
       <button
         ref="btnRef"
@@ -92,9 +94,9 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
       <slot />
     </main>
 
-    <!-- Ad Banner -->
-    <div class="flex justify-center mb-4 w-full">
-      <AdComponents ad-slot="5300517034" />
+    <div class="text-center text-xl text-gray-500 px-4 py-3 leading-relaxed">
+      <p>網站提供公益彩券開獎結果資訊與數據統計分析，僅供參考。所有開獎資訊應以官方公告為準。</p>
+      <p>投注不過度，助人又樂己。未滿18歲不得購買或兌領彩券。</p>
     </div>
 
     <footer class="py-4 text-center text-xs text-white" style="background-color: #59adbc"></footer>

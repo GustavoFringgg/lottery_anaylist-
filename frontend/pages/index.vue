@@ -82,5 +82,10 @@ useHead({ title: "台灣彩券最新開獎號碼 - 專業分析熱點走勢圖" 
         <DrawDateButton class="mt-[5px] sm:mt-[10px]" v-if="isDrawTody(game)">今日開獎</DrawDateButton>
       </LotteryGameCard>
     </div>
+
+    <!-- Ad Banner -->
+    <div class="flex justify-center mt-4 w-full">
+      <AdComponents ad-slot="5300517034" />
+    </div>
   </div>
 </template>
