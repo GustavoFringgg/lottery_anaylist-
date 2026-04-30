@@ -93,7 +93,7 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
     </main>
 
     <!-- Ad Banner -->
-    <div class="flex justify-center mb-4">
+    <div class="flex justify-center mb-4 w-full">
       <AdComponents ad-slot="5300517034" />
     </div>
 
