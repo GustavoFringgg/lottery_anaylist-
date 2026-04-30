@@ -17,7 +17,9 @@ const props = defineProps<{
 const adClient = "ca-pub-3532772519046674"
 
 onMounted(() => {
-  // @ts-ignore
-  ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+  setTimeout(() => {
+    // @ts-ignore
+    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+  }, 100)
 })
 </script>
