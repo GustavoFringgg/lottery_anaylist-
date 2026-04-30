@@ -33,7 +33,7 @@ const isDrawTody = (game: CardData) => game.draw_days?.includes(todayWeekday) ??
 const { featured: gamesFeatured, grid: gamesGrid } = useLotteryLatest()
 const { bingoCard } = useBingoLatest()
 
-useHead({ title: "台彩分析 - 即時開獎資訊" }) //頁面標題 適合SEO
+useHead({ title: "台灣彩券最新開獎號碼 - 專業分析熱點走勢圖" })
 </script>
 
 <template>
