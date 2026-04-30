@@ -93,9 +93,9 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
     </main>
 
     <!-- Ad Banner -->
-    <!-- <div class="flex justify-center mb-4">
-      <img src="/images/logos/adExample.png" alt="廣告" class="w-full max-w-[1170px] h-auto" />
-    </div> -->
+    <div class="flex justify-center mb-4">
+      <AdComponents ad-slot="5300517034" />
+    </div>
 
     <footer class="py-4 text-center text-xs text-white" style="background-color: #59adbc"></footer>
   </div>

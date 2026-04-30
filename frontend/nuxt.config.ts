@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   // app index.html head 內容
   app: {
     head: {
-      title: "台彩分析 - 即時開獎資訊",
+      title: "台灣彩券最新開獎號碼 - 專業分析熱點走勢圖",
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -75,6 +75,11 @@ export default defineNuxtConfig({
         { rel: "canonical", href: "https://www.539lto.co/" }
       ],
       script: [
+        {
+          src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3532772519046674",
+          async: true,
+          crossorigin: "anonymous"
+        },
         {
           src: "https://www.googletagmanager.com/gtag/js?id=G-Z5TWHGFH4L",
           async: true
