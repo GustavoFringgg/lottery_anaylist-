@@ -37,6 +37,7 @@ useHead({ title: "台灣彩券最新開獎號碼 - 專業分析熱點走勢圖" 
 </script>
 
 <template>
+  <h1 class="sr-only">台灣彩券最新開獎號碼 - 專業分析熱點走勢圖</h1>
   <div class="flex flex-col w-full max-w-[1200px] mx-auto">
     <AdCarousel />
   </div>
@@ -81,6 +82,11 @@ useHead({ title: "台灣彩券最新開獎號碼 - 專業分析熱點走勢圖" 
       <LotteryGameCard v-for="game in gamesGrid" :key="game.name + game.draw_term" :game="game">
         <DrawDateButton class="mt-[5px] sm:mt-[10px]" v-if="isDrawTody(game)">今日開獎</DrawDateButton>
       </LotteryGameCard>
+    </div>
+
+    <!-- Ad Banner -->
+    <div class="flex justify-center mt-4 w-full">
+      <AdComponents ad-slot="5300517034" />
     </div>
   </div>
 </template>

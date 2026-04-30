@@ -4,6 +4,10 @@ export default defineNuxtConfig({
 
   modules: ["@nuxtjs/tailwindcss", "@nuxtjs/sitemap"],
 
+  components: {
+    dirs: [{ path: "~/components", pathPrefix: false }]
+  },
+
   site: {
     url: "https://www.539lto.co"
   },
