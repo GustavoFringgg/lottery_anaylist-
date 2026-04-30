@@ -1,6 +1,6 @@
 <template>
   <ins
-    class="adsbygoogle"
+    class="adsbygoogle w-full"
     style="display: block"
     :data-ad-client="adClient"
     :data-ad-slot="adSlot"
@@ -20,6 +20,6 @@ onMounted(() => {
   setTimeout(() => {
     // @ts-ignore
     ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-  }, 100)
+  }, 500)
 })
 </script>
