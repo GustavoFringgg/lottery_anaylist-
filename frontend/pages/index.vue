@@ -37,6 +37,7 @@ useHead({ title: "台灣彩券最新開獎號碼 - 專業分析熱點走勢圖" 
 </script>
 
 <template>
+  <h1 class="sr-only">台灣彩券最新開獎號碼 - 專業分析熱點走勢圖</h1>
   <div class="flex flex-col w-full max-w-[1200px] mx-auto">
     <AdCarousel />
   </div>
