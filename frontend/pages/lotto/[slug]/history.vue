@@ -13,5 +13,5 @@ useHead({ title: "台灣彩券開獎號碼 - 歷史開獎號碼查詢" })
 </script>
 
 <template>
-  <LotteryTrend :slug="slug" :logoSrc="logoSrc" />
+  <LotteryHistory :slug="slug" :logoSrc="logoSrc" />
 </template>

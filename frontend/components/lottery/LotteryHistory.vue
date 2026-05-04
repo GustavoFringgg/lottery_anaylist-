@@ -21,7 +21,6 @@ const PAGE_SIZE = 8
 const { getDraws } = useLotteryApi()
 
 const limit = ref(10)
-const activeFeature = ref("history")
 const currentPage = ref(1)
 
 const { data } = await useAsyncData(`lottery-history-${props.slug}`, () => getDraws(props.slug, limit.value), {
@@ -56,9 +55,9 @@ const hasSpecial = computed(() => rows.value.some((row) => row.special !== null)
         :logoSrc="logoSrc"
         :gameName="gameName"
         :features="SUB_FEATURES"
-        v-model:activeFeature="activeFeature"
+        title="歷年開獎號碼查詢"
+        v-model="limit"
       />
-      <QueryControl title="歷年開獎號碼查詢" v-model="limit" />
 
       <!-- 桌面版表格 -->
       <div class="hidden sm:block border border-[#007979] rounded overflow-hidden">
