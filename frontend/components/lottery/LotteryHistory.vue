@@ -6,15 +6,6 @@ const props = defineProps<{
   logoSrc: string
 }>()
 
-const SUB_FEATURES = [
-  { label: "歷年開獎號碼", value: "history" },
-  { label: "分布走勢圖", value: "trend" },
-  { label: "各期統計分析", value: "stats" },
-  { label: "三分區分佈圖", value: "zone" },
-  { label: "單雙比分析圖", value: "odd-even" },
-  { label: "首數分析圖", value: "first-digit" },
-  { label: "尾數分析圖", value: "last-digit" }
-]
 
 const PAGE_SIZE = 8
 
@@ -54,7 +45,7 @@ const hasSpecial = computed(() => rows.value.some((row) => row.special !== null)
       <LotteryPageHeader
         :logoSrc="logoSrc"
         :gameName="gameName"
-        :features="SUB_FEATURES"
+
         title="歷年開獎號碼查詢"
         v-model="limit"
       />

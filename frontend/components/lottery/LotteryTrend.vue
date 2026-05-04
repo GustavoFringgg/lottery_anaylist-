@@ -6,16 +6,6 @@ const props = defineProps<{
   logoSrc: string
 }>()
 
-const SUB_FEATURES = [
-  { label: "歷年開獎號碼", value: "history" },
-  { label: "分布走勢圖", value: "trend" },
-  { label: "各期統計分析", value: "stats" },
-  { label: "三分區分佈圖", value: "zone" },
-  { label: "單雙比分析圖", value: "odd-even" },
-  { label: "首數分析圖", value: "first-digit" },
-  { label: "尾數分析圖", value: "last-digit" }
-]
-
 const PAGE_SIZE = 8
 
 const { getDraws } = useLotteryApi()
@@ -51,13 +41,7 @@ const hasSpecial = computed(() => rows.value.some((row) => row.special !== null)
 <template>
   <div class="bg-[#f0ede6] min-h-screen">
     <div class="max-w-[1200px] mx-auto px-2 sm:px-0 py-0">
-      <LotteryPageHeader
-        :logoSrc="logoSrc"
-        :gameName="gameName"
-        :features="SUB_FEATURES"
-        title="分布走勢圖"
-        v-model="limit"
-      />
+      <LotteryPageHeader :logoSrc="logoSrc" :gameName="gameName" title="分布走勢圖" v-model="limit" />
 
       <!-- 桌面版表格 -->
       <div class="hidden sm:block border border-[#007979] rounded overflow-hidden">
