@@ -11,7 +11,7 @@ const slides = [
     desktop: "/images/ads/ad2-desktop.png",
     mobile: "/images/ads/ad2-mobile.png",
     type: "internal",
-    url: "/responsible-gaming",
+    url: "/",
     num: 1
   }
 ]
