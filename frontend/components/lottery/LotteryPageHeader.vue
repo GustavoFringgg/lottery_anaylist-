@@ -52,17 +52,23 @@
 </template>
 
 <script setup lang="ts">
-interface Feature {
-  label: string
-  value: string
-}
+const SUB_FEATURES = [
+  { label: "歷年開獎號碼", value: "history" },
+  { label: "分布走勢圖", value: "trend" },
+  { label: "各期統計分析", value: "stats" },
+  { label: "三分區分佈圖", value: "zone" },
+  { label: "單雙比分析圖", value: "odd-even" },
+  { label: "首數分析圖", value: "first-digit" },
+  { label: "尾數分析圖", value: "last-digit" },
+]
+
+const GAMES_WITH_SPECIAL = ['big-lotto', 'power-lotto', 'bingo']
 
 const options = [10, 20, 30]
 
 const props = defineProps<{
   logoSrc: string
   gameName: string
-  features: Feature[]
   title: string
 }>()
 
@@ -71,9 +77,17 @@ const limit = defineModel<number>({ required: true })
 const router = useRouter()
 const route = useRoute()
 
-const activeFeature = computed(() => route.path.split('/').pop() ?? '')
+const features = computed(() => {
+  const slug = route.params.slug as string
+  const extra = GAMES_WITH_SPECIAL.includes(slug)
+    ? [{ label: "特別號分析", value: "special" }]
+    : []
+  return [...SUB_FEATURES, ...extra]
+})
 
-const activeLabel = computed(() => props.features.find((f) => f.value === activeFeature.value)?.label)
+const activeFeature = computed(() => route.path.split("/").pop() ?? "")
+
+const activeLabel = computed(() => features.value.find((f) => f.value === activeFeature.value)?.label)
 
 const featureOpen = ref(false)
 
